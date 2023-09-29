@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pl-PL">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="/reveal.js/dist/reset.css">
+		<link rel="stylesheet" href="/reveal.js/dist/reveal.css">
+		<link rel="stylesheet" href="/reveal.js/dist/theme/moon.css">
+		<link rel="stylesheet" href="/reveal.js/plugin/highlight/monokai.css">
+		<style>
+			.reveal pre code {max-height: 600px;}
+		</style>
+		<title>{{ with .Title }}{{ . }}{{ else }}Wykład{{ end }}{{ with .Params.subtitle }}: {{ . }}{{ end }}</title>
+	</head>
+	<body>
+		<div class="reveal"><div class="slides">
+		{{ with .Title }}
+		<section>
+			<h1>{{ . }}{{ with $.Params.subtitle }}:<br>{{ . }}{{ end }}</h1>
+			<p>Mariusz Chilmon<br><a href="https://uc.vmario.org">uc.vmario.org</a></p>
+		</section>
+		{{ end }}
+{{ .Content }}
+		</div></div>
+		<script src="/reveal.js/dist/reveal.js"></script>
+		<script src="/reveal.js/plugin/markdown/markdown.js"></script>
+		<script src="/reveal.js/plugin/highlight/highlight.js"></script>
+		<script src="/reveal.js/plugin/notes/notes.js"></script>
+		<script src="/reveal.js/plugin/zoom/zoom.js"></script>
+		<script src="/reveal.js/plugin/search/search.js"></script>
+		<script src="/reveal.js/plugin/math/math.js"></script>
+		<script>
+			Reveal.initialize({
+				hash: true,
+				transition: 'convex',
+				backgroundTransition: 'convex',
+				mouseWheel: true,
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealZoom, RevealSearch, RevealMath.KaTeX ]
+			});
+		</script>
+	</body>
+</html>
