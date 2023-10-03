@@ -1,5 +1,5 @@
 <section>
-	<h3>{{ .Get 0 }}</h3>
+	<h3>{{ .Get 0 | safeHTML }}</h3>
 	<ul>
 		{{ .Inner }}
 	</ul>

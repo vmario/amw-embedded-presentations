@@ -1,4 +1,5 @@
 <section>
+	{{ with .Get 1 }}<h3>{{ . }}</h3>{{ end }}
 	<img src="{{ .Get 0 }}" class="r-stretch">
 </section>
 
