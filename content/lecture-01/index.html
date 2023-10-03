@@ -3,32 +3,134 @@ title: "Wykład 1"
 subtitle: "Systemy wbudowane"
 ---
 
-{{< part "Zasady" >}}
+{{< part "System oceniania" >}}
 
-{{< slide "System oceniania" />}}
+{{< ul-slide "Wykład" >}}
+	{{< lf >}}1 pkt za <strong>uczestnictwo</strong> w wykładzie
+	{{< lf >}}dodatkowe punkty za aktywność
+	{{< lf >}}sumarycznie 5 pkt. + punkty dodatkowe
+{{< /ul-slide >}}
 
-{{< slide "Wykład" />}}
+{{< ul-slide "Laboratorium" >}}
+	{{< lf >}}1 pkt za implementację zadania podstawowego
+	{{< lf >}}1 pkt za uzupełnienie podstawowego arkusza zadań
+	{{< lf >}}1 pkt za implementację zadania rozszerzonego
+	{{< lf >}}1 pkt za uzupełnienie rozszerzonego arkusza zadań
+	{{< lf >}}dodatkowe punkty za aktywność
+	{{< lf >}}sumarycznie 40 pkt. + punkty dodatkowe
+{{< /ul-slide >}}
 
-{{< slide "Laboratorium" />}}
+{{< slide "Ocena końcowa" >}}
+	{{< table "Próg" "Ocena" >}}
+		{{< row "0" "2,0" >}}
+		{{< row "14" "3,0" >}}
+		{{< row "20" "3,5" >}}
+		{{< row "27" "4,0" >}}
+		{{< row "34" "4,5" >}}
+		{{< row "41" "5,0" >}}
+	{{< /table >}}
+{{< /slide >}}
 
 {{< part "Co to jest system wbudowany?" >}}
 
-{{< ul-slide "Dla użytkownika" >}}
-	{{< lf >}}mały
-	{{< lf >}}zasilany bateryjnie
-	{{< lf >}}prosty interfejs
-{{< /ul-slide >}}
+{{< slide "Definicja" >}}
+	System mikroprocesorowy (urządzenie elektroniczne z&nbsp;procesorem, pamięcią i&nbsp;peryferiałami&nbsp;I/O),<br>
+	nie będący komputerem ogólnego przeznaczenia.
+{{< /slide >}}
 
-{{< ul-slide "Dla programisty" >}}
-	{{< lf >}}bez systemu operacyjnego (<em>bare-metal</em>)
-	{{< lf >}}8-bitowy
-	{{< lf >}}krótki kod
-{{< /ul-slide >}}
-
-{{< ul-slide "W rzeczywistości" >}}
-	{{< lf >}}nie jest komputerem ogólnego przeznaczenia
-	{{< lf >}}wykonuje operacje w czasie rzeczywistym
+{{< ul-slide "Cechy charakterystyczne" >}}
+	{{< lf >}}zaprojektowany do realizaji określonego zadania
+	{{< lf >}}wysoka niezawodność
+	{{< lf >}}ograniczone zasoby (pamięć, moc obliczeniowa, zasilanie)
+	{{< lf >}}praca w czasie rzeczywistym
 	{{< lf >}}specyficzne sensory i efektory
+	{{< lf >}}nieprzerwana praca przez długi czas
+	{{< lf >}}brak systemu operacyjnego (<em>bare-metal</em>) lub RTOS
+	{{< lf >}}uproszczony interfejs użytkownika
 {{< /ul-slide >}}
 
-Pierwszy system wbudowany - Apollo
+{{< part "Przykłady systemów wbudowanych" >}}
+
+{{< img-slide apollo-guidance-computer.jpg "Apollo Guidance Computer" >}}
+{{< img-slide kalkulator-unicom-141p.jpg "Kalkulator Unicom 141P (Procesor Intel 4004)" >}}
+{{< img-slide marine-diesel-engine.jpg "Silnik okrętowy" >}}
+{{< img-slide test.jpg "Karta kredytowa" >}}
+{{< img-slide test.jpg "Bankomat" >}}
+{{< img-slide test.jpg "Smartwatch" >}}
+{{< img-slide test.jpg "Pralka" >}}
+{{< img-slide test.jpg "Samochód" >}}
+
+{{< part "Oprogramowanie systemów wbudowanych<br>(firmware)" >}}
+
+{{< ul-slide "Cechy oprogramowania" >}}
+	{{< lf >}}poprawność
+	{{< lf >}}przewidywalność
+	{{< lf >}}odporność na awarie
+	{{< lf >}}brak przerw w pracy
+	{{< lf >}}reżim czasu rzeczywistego
+{{< /ul-slide >}}
+
+{{< ul-slide "Źródła awarii" >}}
+{{< /ul-slide >}}
+
+{{< ul-slide "Zapewnienie odporności na awarie" >}}
+{{< /ul-slide >}}
+
+{{< ul-slide "Języki programowania" >}}
+	{{< lf >}}asembler
+	{{< lf >}}C
+	{{< lf >}}C++ (lub podzbiór C++)
+	{{< lf >}}¯\_(ツ)_/¯
+	{{< lf >}}Java
+	{{< lf >}}Python
+	{{< lf >}}Rust
+{{< /ul-slide >}}
+
+{{< part "Rynek pracy" >}}
+
+{{< part "Budowa systemów embedded" >}}
+
+{{< ul-slide "Schemat blokowy" >}}
+{{< /ul-slide >}}
+
+{{< ul-slide "Zasilanie" >}}
+{{< /ul-slide >}}
+
+{{< ul-slide "Interfejsy użytkownika<br>(HMI)" >}}
+	{{< lf >}}LED
+	{{< lf >}}buzzer
+	{{< lf >}}przycisk
+	{{< lf >}}pole dotykowe
+	{{< lf >}}dedykowany wyświetlacz LED, LCD, VFD
+	{{< lf >}}haptic feedback
+	{{< lf >}}Hawking
+{{< /ul-slide >}}
+
+{{< ul-slide "Sensory" >}}
+	{{< lf >}}termometr
+{{< /ul-slide >}}
+
+{{< ul-slide "Efektory" >}}
+	{{< lf >}}silnik
+{{< /ul-slide >}}
+
+{{< ul-slide "uC, DSP, SoC, FPGA etc., Neural Decision Processor" >}}
+	{{< lf >}}mikrokontrolery heterogeniczne
+{{< /ul-slide >}}
+
+{{< ul-slide "PCB" >}}
+	{{< lf >}}
+{{< /ul-slide >}}
+
+{{< ul-slide "Obudowa" >}}
+	{{< lf >}}
+{{< /ul-slide >}}
+
+{{< ul-slide "Trendy" >}}
+	{{< lf >}}Arduino
+	{{< lf >}}retro
+	{{< lf >}}IoT
+	{{< lf >}}TinyML
+	{{< lf >}}wearable
+{{< /ul-slide >}}
+
