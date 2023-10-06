@@ -17,7 +17,11 @@
 		{{ with .Title }}
 		<section>
 			<h1>{{ . }}{{ with $.Params.subtitle }}:<br>{{ . }}{{ end }}</h1>
-			<p>Mariusz Chilmon<br><a href="https://uc.vmario.org">uc.vmario.org</a></p>
+			<p>
+				Mariusz Chilmon<br>
+				<a href="mailto:m.chilmon@amw.gdynia.pl">m.chilmon@amw.gdynia.pl</a><br>
+				<a href="https://uc.vmario.org">uc.vmario.org</a>
+			</p>
 		</section>
 		{{ end }}
 {{ .Content }}
