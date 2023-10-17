@@ -1,0 +1,258 @@
+---
+title: "Wykład 2"
+subtitle: "Zegary w systemach wbudowanych"
+---
+
+{{< part "Układy asynchroniczne i&nbsp;synchroniczne" >}}
+
+{{< slide "Układy asynchroniczne" />}}
+{{< img-slide asynchronous.png >}}
+{{< ul-slide "Układy asynchroniczne" >}}
+	{{< lf >}}szybkie
+	{{< lf >}}energooszczędne
+	{{< lf >}}trudne w projektowaniu
+{{< /ul-slide >}}
+
+{{< slide "Układy synchroniczne" />}}
+{{< img-slide synchronous.png >}}
+{{< ul-slide "Układy synchroniczne" >}}
+	{{< lf >}}wolniejsze
+	{{< lf >}}zużywają energię cały czas
+	{{< lf >}}łatwiejsze do zaprojektowania
+{{< /ul-slide >}}
+
+{{< ul-slide "Programowanie asynchroniczne <sup>⁕</sup>" >}}
+	{{< lf >}}nie ma związku z układami asynchronicznymi
+	{{< lf >}}pozwala obsługiwać wiele zdarzeń o stosunkowo długim czasie wykonania bez blokowania programu
+{{< /ul-slide >}}
+
+{{< part "Źródła zegarowe" >}}
+
+{{< slide "Oscylator RC" />}}
+{{< img-slide pic16f5x-rc-oscillator.png >}}
+{{< ul-slide "Oscylator RC" >}}
+	{{< lf >}}tani
+	{{< lf >}}mały (możliwy do wbudowania w układ scalony)
+	{{< lf >}}energooszczędny
+	{{< lf >}}niedokładny
+{{< /ul-slide >}}
+
+{{< img-slide atmega32-block-diagram.webp >}}
+
+{{< ul-slide "Rezonator kwarcowy (XO/XTAL)" >}}
+	{{< lf >}}droższy
+	{{< lf >}}większy
+	{{< lf >}}zużywa więcej energii
+	{{< lf >}}bardzo dokładny (zwłaszcza VCXO, TCXO i OCXO)
+{{< /ul-slide >}}
+{{< ul-slide "Rezonatory kwarcowe" >}}
+	<dl>
+		<dt class="fragment" data-fragment-index="1">VCXO
+			<dd class="fragment" data-fragment-index="1">Voltage-Controlled Crystal Oscillator
+		<dt class="fragment" data-fragment-index="2">TCXO
+			<dd class="fragment" data-fragment-index="2">Temperature-Compensated Crystal Oscillator
+		<dt class="fragment" data-fragment-index="3">OCXO
+			<dd class="fragment" data-fragment-index="3">Oven-Controlled Crystal Oscillator
+	</dl>
+{{< /ul-slide >}}
+{{< img-slide quartz-crystal-internal.jpg >}}
+{{< img-slide ocxo.gif >}}
+
+{{< ul-slide "Wzorzec rubidowy" >}}
+	{{< lf >}}nieludzko dokładny
+	{{< lf >}}bardzo drogi
+	{{< lf >}}zużywa dużo energii
+{{< /ul-slide >}}
+{{< img-slide rubidium.webp >}}
+
+{{< ul-slide "Odbiornik GNSS (np. GPS) — <em>1PPS</em>" >}}
+	{{< lf >}}bardzo dokładny
+	{{< lf >}}stosunkowo tani
+	{{< lf >}}ma średnie zapotrzebowanie na energię
+	{{< lf >}}dostarcza również czas rzeczywisty
+	{{< lf >}}wymaga sygnału z satelity
+{{< /ul-slide >}}
+{{< img-slide gps.jpg >}}
+
+{{< slide "Przykładowe dokładności wzorców czasu" >}}
+	{{< table "Źródło" "Dokładność" "Odchyłka" >}}
+		{{< row-right "RC" "±1%" "7h/miesiąc" >}}
+		{{< row-right "XO" "±20ppm" "51s/miesiąc" >}}
+		{{< row-right "OCXO" "±100ppb" "3s/rok" >}}
+		{{< row-right "Rb" "±1,5ppb" "47ms/rok" >}}
+	{{< /table >}}
+{{< /slide >}}
+
+{{< part "Regulacja szybkości zegara" >}}
+
+{{< ul-slide "Szybki zegar \(\Rightarrow\) problem" >}}
+	{{< lf >}}duże zużycie energii
+	{{< lf >}}wydzielanie ciepła
+	{{< lf >}}wyższe napięcie zasilania
+	{{< lf >}}generowanie zakłóceń
+	{{< lf >}}zjawiska falowe
+	{{< lf >}}czas propagacji
+{{< /ul-slide >}}
+{{< img-slide mega-active.webp >}}
+{{< img-slide mega-idle.webp >}}
+
+{{< ul-slide "Dzielnik częstotliwości — <em>divider</em>" >}}
+	{{< lf >}}najprościej podzielić częstotliwość przez $2^n$
+	{{< lf >}}możliwe jest uzyskanie podziału także przez $n$
+	{{< lf >}}nie ma możliwości zwiększenia częstotliwości
+	{{< lf >}}wymaga zewnętrznego źródła zegara
+{{< /ul-slide >}}
+{{< img-slide bincount.png >}}
+{{< img-slide counter.svg false "background-color: white">}}
+
+{{< ul-slide "VCO" />}}
+{{< img-slide korg.webp >}}
+{{< ul-slide "VCO — <em>Voltage-Controlled Oscillator</em>" >}}
+	{{< lf >}}sterowany napięciem generator RC
+	{{< lf >}}jest źródłem zegara, ale o niskiej dokładności
+{{< /ul-slide >}}
+{{< img-slide vco-plot.gif >}}
+
+{{< ul-slide "PLL — <em>Phase-Locked Loop</em>" />}}
+{{< img-slide basic-pll.png >}}
+{{< ul-slide "Zalety PLL" >}}
+	{{< lf >}}mnoży częstotliwość wzorcową przez $n$
+	{{< lf >}}w połączeniu z dzielnikiem przez $m$ pozwala uzyskać współczynnik $\frac{n}{m}$
+	{{< lf >}}bardzo elastyczne rozwiązanie — <em>must-have</em> dla nowoczesnego mikrokontrolera
+{{< /ul-slide >}}
+{{< ul-slide "Wady PLL" >}}
+	{{< lf >}}skomplikowany obwód analogowo-cyfrowy
+	{{< lf >}}często stabilność uzyskuje tylko w pewnym zakresie częstotliwości wejściowej
+	{{< lf >}}uzyskanie stabilności zajmuje pewien czas i może być sygnalizowane w odpowiednim rejestrze
+{{< /ul-slide >}}
+
+{{< part "Kondycjonowanie i propagacja sygnału zegarowego" >}}
+
+{{< slide "Podsystem zegarowy mikrokontrolera" />}}
+{{< img-slide xmega-clock-system.webp >}}
+{{< img-slide omap-pll.webp >}}
+{{< img-slide omap-pll-table.webp >}}
+{{< code-slide "1|8-22|64-68|32-42" >}}
+	int davinci_set_sysclk_rate(struct clk *clk, unsigned long rate)
+	{
+		unsigned v;
+		struct pll_data *pll;
+		unsigned long input;
+		unsigned ratio = 0;
+
+		/* If this is the PLL base clock, wrong function to call */
+		if (clk->pll_data)
+			return -EINVAL;
+
+		/* There must be a parent... */
+		if (WARN_ON(!clk->parent))
+			return -EINVAL;
+
+		/* ... the parent must be a PLL... */
+		if (WARN_ON(!clk->parent->pll_data))
+			return -EINVAL;
+
+		/* ... and this clock must have a divider. */
+		if (WARN_ON(!clk->div_reg))
+			return -EINVAL;
+
+		pll = clk->parent->pll_data;
+
+		input = clk->parent->rate;
+
+		/* If pre-PLL, source clock is before the multiplier and divider(s) */
+		if (clk->flags & PRE_PLL)
+			input = pll->input_rate;
+
+		if (input > rate) {
+			/*
+			 * Can afford to provide an output little higher than requested
+			 * only if maximum rate supported by hardware on this sysclk
+			 * is known.
+			 */
+			if (clk->maxrate) {
+				ratio = DIV_ROUND_CLOSEST(input, rate);
+				if (input / ratio > clk->maxrate)
+					ratio = 0;
+			}
+
+			if (ratio == 0)
+				ratio = DIV_ROUND_UP(input, rate);
+
+			ratio--;
+		}
+
+		if (ratio > pll->div_ratio_mask)
+			return -EINVAL;
+
+		do {
+			v = __raw_readl(pll->base + PLLSTAT);
+		} while (v & PLLSTAT_GOSTAT);
+
+		v = __raw_readl(pll->base + clk->div_reg);
+		v &= ~pll->div_ratio_mask;
+		v |= ratio | PLLDIV_EN;
+		__raw_writel(v, pll->base + clk->div_reg);
+
+		v = __raw_readl(pll->base + PLLCMD);
+		v |= PLLCMD_GOSET;
+		__raw_writel(v, pll->base + PLLCMD);
+
+		do {
+			v = __raw_readl(pll->base + PLLSTAT);
+		} while (v & PLLSTAT_GOSTAT);
+
+		return 0;
+	}
+{{< /code-slide >}}
+
+{{< slide "Propagacja zegara w systemie" />}}
+{{< img-slide mc14521b.webp >}}
+{{< img-slide clk.png >}}
+{{< img-slide cdcv304.webp >}}
+{{< img-slide square-traces-featured.webp >}}
+
+{{< slide "Długość fali" >}}
+	<div class="r-stack">
+		<div class="fragment fade-in-then-out">\(\lambda = \frac{v}{f}\)</div>
+		<div class="fragment fade-in-then-out">\(\lambda = \frac{v}{f} = \frac{3\cdot10^{8}\frac{\text{m}}{\text{s}}}{10\text{GHz}}\)</div>
+		<div class="fragment fade-in-then-out">\(\lambda = \frac{v}{f} = \frac{3\cdot10^{8}\frac{\text{m}}{\text{s}}}{10\text{GHz}} = \frac{3\cdot10^{11}\frac{\text{mm}}{\text{s}}}{10\cdot10^9\frac{1}{\text{s}}}\)</div>
+		<div class="fragment">\(\lambda = \frac{v}{f} = \frac{3\cdot10^{8}\frac{\text{m}}{\text{s}}}{10\text{GHz}} = \frac{3\cdot10^{11}\frac{\text{mm}}{\text{s}}}{10\cdot10^9\frac{1}{\text{s}}} = 30\text{mm}\)</div>
+	</div>
+{{< /slide >}}
+
+{{< part "Zegary czasu rzeczywistego" >}}
+
+{{< ul-slide "Przeznaczenie czasu rzeczywistego" >}}
+	{{< lf >}}wyświetlanie czasu użytkownikowi
+	{{< lf >}}logowanie zdarzeń
+	{{< lf >}}wykonywanie zaplanowanych zadań
+	{{< lf >}}komunikacja z innymi urządzeniami (np. TDMA)
+	{{< lf >}}licencjonowanie funkcjonalności
+{{< /ul-slide >}}
+
+{{< ul-slide "Dostarczenie czasu rzeczywistego" >}}
+	{{< lf >}}liczenie czasu w programie
+	{{< lf >}}RTC zintegrowany w mikrokontrolerze
+	{{< lf >}}RTC zewnętrzny
+	{{< lf >}}odbiornik GNSS (np. GPS)
+	{{< lf >}}NTP (<em>Network Time Protocol</em>)
+	{{< lf >}}DCF77 (50kW@77,5kHz — 2000km)
+	{{< lf >}}GSM
+	{{< lf >}}RDS (<em>Radio Data System</em>) — ±100ms
+	{{< lf >}}Bluetooth (sparowany telefon komórkowy)
+{{< /ul-slide >}}
+{{< img-slide omap-rtc.webp >}}
+{{< img-slide ds3231.webp >}}
+{{< img-slide dcf.webp >}}
+{{< img-slide waveceptor.jpg >}}
+
+{{< slide "Częstotliwość oscylatora" >}}
+	<div class="fragment">Dlaczego \(f = 32{,}768\text{kHz}\)?</div>
+	<div class="r-stack">
+		<div class="fragment fade-in-then-out">\(t = \frac{32{,}768\text{kHz}}{2^{n}}\)</div>
+		<div class="fragment fade-in-then-out">\(t = \frac{32{,}768\text{kHz}}{2^{15}}\)</div>
+		<div class="fragment">\(t = \frac{32{,}768\text{kHz}}{2^{15}} = 1\text{s}\)</div>
+	</div>
+{{< /slide >}}
+
