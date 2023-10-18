@@ -6,7 +6,7 @@ subtitle: "Sygnały zegarowe"
 {{< part "Układy asynchroniczne i&nbsp;synchroniczne" >}}
 
 {{< slide "Układy asynchroniczne" />}}
-{{< img-slide asynchronous.png >}}
+{{< img-slide asynchronous.png />}}
 {{< ul-slide "Układy asynchroniczne" >}}
 	{{< lf >}}szybkie
 	{{< lf >}}energooszczędne
@@ -14,7 +14,7 @@ subtitle: "Sygnały zegarowe"
 {{< /ul-slide >}}
 
 {{< slide "Układy synchroniczne" />}}
-{{< img-slide synchronous.png >}}
+{{< img-slide synchronous.png />}}
 {{< ul-slide "Układy synchroniczne" >}}
 	{{< lf >}}wolniejsze
 	{{< lf >}}zużywają energię cały czas
@@ -29,7 +29,7 @@ subtitle: "Sygnały zegarowe"
 {{< part "Źródła zegarowe" >}}
 
 {{< slide "Oscylator RC" />}}
-{{< img-slide pic16f5x-rc-oscillator.png >}}
+{{< img-slide pic16f5x-rc-oscillator.png />}}
 {{< ul-slide "Oscylator RC" >}}
 	{{< lf >}}tani
 	{{< lf >}}mały (możliwy do wbudowania w układ scalony)
@@ -37,7 +37,7 @@ subtitle: "Sygnały zegarowe"
 	{{< lf >}}niedokładny
 {{< /ul-slide >}}
 
-{{< img-slide atmega32-block-diagram.webp >}}
+{{< img-slide atmega32-block-diagram.webp />}}
 
 {{< ul-slide "Rezonator kwarcowy (XO/XTAL)" >}}
 	{{< lf >}}droższy
@@ -55,15 +55,15 @@ subtitle: "Sygnały zegarowe"
 			<dd class="fragment" data-fragment-index="3">Oven-Controlled Crystal Oscillator
 	</dl>
 {{< /ul-slide >}}
-{{< img-slide quartz-crystal-internal.jpg >}}
-{{< img-slide ocxo.gif >}}
+{{< img-slide quartz-crystal-internal.jpg />}}
+{{< img-slide ocxo.gif />}}
 
 {{< ul-slide "Wzorzec rubidowy" >}}
 	{{< lf >}}nieludzko dokładny
 	{{< lf >}}bardzo drogi
 	{{< lf >}}zużywa dużo energii
 {{< /ul-slide >}}
-{{< img-slide rubidium.webp >}}
+{{< img-slide rubidium.webp />}}
 
 {{< ul-slide "Odbiornik GNSS (np. GPS) — <em>1PPS</em>" >}}
 	{{< lf >}}bardzo dokładny
@@ -72,7 +72,7 @@ subtitle: "Sygnały zegarowe"
 	{{< lf >}}dostarcza również czas rzeczywisty
 	{{< lf >}}wymaga sygnału z satelity
 {{< /ul-slide >}}
-{{< img-slide gps.jpg >}}
+{{< img-slide gps.jpg />}}
 
 {{< slide "Przykładowe dokładności wzorców czasu" >}}
 	{{< table "Źródło" "Dokładność" "Odchyłka" >}}
@@ -93,8 +93,8 @@ subtitle: "Sygnały zegarowe"
 	{{< lf >}}zjawiska falowe
 	{{< lf >}}czas propagacji
 {{< /ul-slide >}}
-{{< img-slide mega-active.webp >}}
-{{< img-slide mega-idle.webp >}}
+{{< img-slide mega-active.webp />}}
+{{< img-slide mega-idle.webp />}}
 
 {{< ul-slide "Dzielnik częstotliwości — <em>divider</em>" >}}
 	{{< lf >}}najprościej podzielić częstotliwość przez $2^n$
@@ -102,19 +102,19 @@ subtitle: "Sygnały zegarowe"
 	{{< lf >}}nie ma możliwości zwiększenia częstotliwości
 	{{< lf >}}wymaga zewnętrznego źródła zegara
 {{< /ul-slide >}}
-{{< img-slide bincount.png >}}
-{{< img-slide counter.svg false "background-color: white">}}
+{{< img-slide bincount.png />}}
+{{< img-slide counter.svg false "background-color: white"/>}}
 
 {{< ul-slide "VCO" />}}
-{{< img-slide korg.webp >}}
+{{< img-slide korg.webp />}}
 {{< ul-slide "VCO — <em>Voltage-Controlled Oscillator</em>" >}}
 	{{< lf >}}sterowany napięciem generator RC
 	{{< lf >}}jest źródłem zegara, ale o niskiej dokładności
 {{< /ul-slide >}}
-{{< img-slide vco-plot.gif >}}
+{{< img-slide vco-plot.gif />}}
 
 {{< ul-slide "PLL — <em>Phase-Locked Loop</em>" />}}
-{{< img-slide basic-pll.png >}}
+{{< img-slide basic-pll.png />}}
 {{< ul-slide "Zalety PLL" >}}
 	{{< lf >}}mnoży częstotliwość wzorcową przez $n$
 	{{< lf >}}w połączeniu z dzielnikiem przez $m$ pozwala uzyskać współczynnik $\frac{n}{m}$
@@ -129,9 +129,9 @@ subtitle: "Sygnały zegarowe"
 {{< part "Kondycjonowanie i propagacja sygnału zegarowego" >}}
 
 {{< slide "Podsystem zegarowy mikrokontrolera" />}}
-{{< img-slide xmega-clock-system.webp >}}
-{{< img-slide omap-pll.webp >}}
-{{< img-slide omap-pll-table.webp >}}
+{{< img-slide xmega-clock-system.webp />}}
+{{< img-slide omap-pll.webp />}}
+{{< img-slide omap-pll-table.webp />}}
 {{< code-slide "1|8-22|64-68|32-42" >}}
 	int davinci_set_sysclk_rate(struct clk *clk, unsigned long rate)
 	{
@@ -207,10 +207,10 @@ subtitle: "Sygnały zegarowe"
 {{< /code-slide >}}
 
 {{< slide "Propagacja zegara w systemie" />}}
-{{< img-slide mc14521b.webp >}}
-{{< img-slide clk.png >}}
-{{< img-slide cdcv304.webp >}}
-{{< img-slide square-traces-featured.webp >}}
+{{< img-slide mc14521b.webp />}}
+{{< img-slide clk.png />}}
+{{< img-slide cdcv304.webp />}}
+{{< img-slide square-traces-featured.webp />}}
 
 {{< slide "Długość fali" >}}
 	<div class="r-stack">
@@ -242,10 +242,10 @@ subtitle: "Sygnały zegarowe"
 	{{< lf >}}RDS (<em>Radio Data System</em>) — ±100ms
 	{{< lf >}}Bluetooth (sparowany telefon komórkowy)
 {{< /ul-slide >}}
-{{< img-slide omap-rtc.webp >}}
-{{< img-slide ds3231.webp >}}
-{{< img-slide dcf.webp >}}
-{{< img-slide waveceptor.jpg >}}
+{{< img-slide omap-rtc.webp />}}
+{{< img-slide ds3231.webp />}}
+{{< img-slide dcf.webp />}}
+{{< img-slide waveceptor.jpg />}}
 
 {{< slide "Częstotliwość oscylatora" >}}
 	<div class="fragment">Dlaczego \(f = 32{,}768\text{kHz}\)?</div>
