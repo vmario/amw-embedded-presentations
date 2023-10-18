@@ -1,1 +1,1 @@
-	<tr>{{ range .Params }}<td style="text-align: right">{{ . }}</td>{{ end }}</tr>
+	<tr>{{ range .Params }}<td style="text-align: right">{{ . | safeHTML }}</td>{{ end }}</tr>
