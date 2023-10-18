@@ -1,0 +1,143 @@
+---
+title: "Wykład 3"
+subtitle: "Pamięci"
+---
+
+{{< part "Historia" >}}
+
+{{< img-slide b-3.jpg "Pamięć bębnowa B-3" />}}
+{{< img-slide magnetic-core.jpg "Pamięć ferrytowa" >}}
+	{{< note >}}Brak rozróżnienia między pamięcią operacyjną a masową.{{< /note >}}
+{{< /img-slide >}}
+
+{{< part "Pamięci operacyjne<br>(RAM — <em>Random-Access Memory</em>)" >}}
+
+{{< ul-slide "Rejestry procesora" >}}
+	{{< lf >}}najszybsza dostępna pamięć
+	{{< lf >}}bardzo mały rozmiar (na ogół 8…128 rejestrówpo wielkości 8…64 bitów, czyli 8B…1024B)
+	{{< lf >}}prostsze procesory pracują tylko na danych w rejestrach
+	{{< lf >}}praktycznie niedostępne dla programisty w językach wyższego poziomu
+	{{< lf >}}oprócz rejestrów procesora istnieją również rejestry I/O
+{{< /ul-slide >}}
+
+{{< ul-slide "SRAM — <em>Static Random-Access Memory</em>" >}}
+	{{< lf >}}złożona z przerzutników
+	{{< lf >}}bardzo szybka
+	{{< lf >}}droga
+	{{< lf >}}zajmuje dużo miejsca w krzemie
+	{{< lf >}}zintegrowana w &micro;C
+{{< /ul-slide >}}
+{{< img-slide avr-sram.webp />}}
+{{< img-slide sram-features.webp >}}
+	{{< note >}}SER — <em>Soft Error Rate</em>.{{< /note >}}
+{{< /img-slide >}}
+{{< img-slide sram-block.webp >}}
+	{{< note >}}
+		<ul>
+			<li>EDAC — <em>Error Detection And Correction</em>
+			<li>MBE — <em>Multiple Bit Error</em>
+		</ul>
+		Można konfigurować znaczenie pinu MBE.
+	{{< /note >}}
+{{< /img-slide >}}
+{{< img-slide sram-timing.webp />}}
+
+{{< ul-slide "DRAM — <em>Dynamic Random-Access Memory</em>" >}}
+	{{< lf >}}złożona z kondensatorów i tranzystorów
+	{{< lf >}}wymaga odświeżania
+	{{< lf >}}szybka
+	{{< lf >}}tania
+	{{< lf >}}zajmuje mało miejsca w krzemie
+	{{< lf >}}układ zewnętrzny
+	{{< lf >}}skomplikowane optymalizacje (przeplot, potoki)
+	{{< lf >}}wersja asynchroniczna (starsza) i synchroniczna (SDRAM, DDR SDRAM)
+{{< /ul-slide >}}
+{{< img-slide sdram-block.webp />}}
+{{< img-slide sdram-timing.webp />}}
+
+{{< slide "Cache" />}}
+{{< img-slide haswell-labeled.webp />}}
+{{< img-slide cache.webp />}}
+{{< slide "Intel Pentium M" >}}
+	{{< table "Pamięć" "Cykle" >}}
+		{{< row-right "Rejestr" "&le;1" >}}
+		{{< row-right "L1d" "~3" >}}
+		{{< row-right "L2" "~14" >}}
+		{{< row-right "RAM" "~240" >}}
+	{{< /table >}}
+{{< /slide >}}
+{{< img-slide working-set-size.webp />}}
+{{< img-slide l1p.webp />}}
+{{< img-slide l1d.webp />}}
+{{< img-slide set-associative-cache.webp />}}
+
+{{< ul-slide "DMA — <em>Direct Memory Access</em>" >}}
+	{{< lf >}}umożliwia peryferiałom dostęp do pamięci bez angażowania rdzenia procesora
+{{< /ul-slide >}}
+
+{{< ul-slide "ECC — <em>Error Checking and Correction</em>" >}}
+	{{< lf >}}sonda Cassini–Huygens — 280 błędów dziennie
+	{{< lf >}}kody nadmiarowe (Hamminga lub Reeda-Solomona)
+	{{< lf >}}może zmniejszać wydajność pamięci (2%…3%)
+	{{< lf >}}wymaga wsparcia ze strony procesora
+	{{< lf >}}stosowane w pamięciach cache procesorów
+	{{< lf >}}stosowane w serwerach i systemach wbudowanych wysokiej niezawodności
+{{< /ul-slide >}}
+
+{{< part "Pamięci masowe (nieulotne)" >}}
+
+{{< ul-slide "EPROM — <em>Erasable Programmable Read-Only Memory</em>" >}}
+	{{< lf >}}technologia historyczna
+	{{< lf >}}programowana wysokim napięciem &gt;20V
+	{{< lf >}}kasowana promieniowaniem UV
+{{< /ul-slide >}}
+{{< img-slide eprom.webp />}}
+
+{{< ul-slide "EEPROM — <em>Electrically Erasable Programmable Read-Only Memory</em>" >}}
+	{{< lf >}}programowana i kasowana elektrycznie
+	{{< lf >}}zazwyczaj niewielka pojemność
+	{{< lf >}}małe <em>erase blocks</em> (1&nbsp;B)
+	{{< lf >}}duża liczba cykli R/W (&gt;100&nbsp;000)
+	{{< lf >}}stosowana w &micro;C jako pamięć danych
+	{{< lf >}}stosowana w kartach kredytowych, SIM, kluczach
+	{{< lf >}}dostępna jako oddzielne US na I<sup>2</sup>C, SPI, 1-Wire
+{{< /ul-slide >}}
+
+{{< ul-slide "Flash" >}}
+	{{< lf >}}rozwinięcie technologii EEPROM
+	{{< lf >}}może osiągać ogromne pojemności (<em>vide</em> SSD)
+	{{< lf >}}duże <em>erase blocks</em> (rzędu KiB)
+	{{< lf >}}często mniejsza liczba cykli R/W (np. 10&nbsp;000)
+	{{< lf >}}stosowana w &micro;C jako pamięć programu
+	{{< lf >}}stosowana w pendrive'ach, kartach pamięci, SSD
+	{{< lf >}}dostępna jako oddzielne US na SPI, QSPI, równoległy
+{{< /ul-slide >}}
+
+{{< slide "NOR Flash vs NAND Flash" >}}
+	{{< table "" "NOR" "NAND" >}}
+		{{< row "Pojemność" "&lt;256MiB" "&gt;256MiB" >}}
+		{{< row "Cena/bit" "większa" "mniejsza" >}}
+		{{< row "R swobodny" "szybki" "wolny" >}}
+		{{< row "R/W sekwencyjny" "wolny" "szybki" >}}
+		{{< row "Bit flipping" "śladowy" "istotny" >}}
+		{{< row "Bad blocks" "0%" "do 2%" >}}
+		{{< row "Retencja" "20 lat" "10 lat" >}}
+		{{< row "Przeznaczenie" "program" "dane" >}}
+	{{< /table >}}
+{{< /slide >}}
+
+{{< ul-slide "Obsługa wad pamięci NAND Flash" >}}
+	{{< lf >}}sprzętowo — FTL (<em>Flash Translation Layer</em>)
+	{{< lf >}}programowo — UBIFS (<em>Unsorted Block Image File System</em>)
+	{{< lf >}}<em>bad blocks</em>
+	{{< lf >}}<em>wear leveling</em>
+	{{< lf >}}<em>memory scrubbing</em> (obsługa <em>bit flipping</em>)
+	{{< lf >}}<em>write back cache</em>
+	{{< lf >}}ECC (CRC)
+{{< /ul-slide >}}
+
+{{< ul-slide "Inne pamięci nieulotne" >}}
+	{{< lf >}}BBRAM (<em>Battery-Backed RAM</em>)
+	{{< lf >}}FRAM (<em>Ferroelectric RAM</em>)
+{{< /ul-slide >}}
+
