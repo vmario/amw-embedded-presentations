@@ -1,10 +1,32 @@
 ---
 title: "Wykład 4"
-subtitle: "Budowa i działanie CPU"
+subtitle: "Budowa i działanie mikrokontrolera"
 ---
 
-{{< part "Budowa CPU" >}}
+{{< part "Mikrokontroler vs. mikroprocesor" >}}
 
+{{< slide "Mikroprocesor" >}}
+	Scalony układ cyfrowy przeznaczony do wykonywania operacji arytmetyczno-logicznych według dostarczonego ciągu instrukcji.
+{{< /slide >}}
+
+{{< slide "Mikrokontroler" >}}
+	<p>Scalony układ cyfrowy zawierający mikroprocesor wraz z pamięcią operacyjną, pamięcią programu, źródłem zegara i&nbsp;układami I/O.</p>
+	<p class="fragment">W uproszczeniu: płyta główna komputera zamknięta w&nbsp;układzie scalonym.</p>
+{{< /slide >}}
+{{< slide "Mikrokontroler" >}}
+	Mikrokontrolery przeznaczone do prostszych systemów wbudowanych nie wymagają żadnych układów zewnętrznych do wykonywania programu.
+{{< /slide >}}
+
+{{< slide "Przykłady" />}}
+{{< img-slide amd-ryzen.jpg />}}
+{{< img-slide gemma-attiny.webp />}}
+{{< img-slide xipu.jpg />}}
+{{< img-slide minecraft.webp />}}
+
+{{< part "Budowa mikrokontrolera" >}}
+
+{{< img-slide xmega-regular.avif />}}
+{{< img-slide xmega-pinout.webp />}}
 {{< slide >}}
 	<div class="r-stack r-stretch">
 		<img src="xmega-frame.webp">
@@ -30,3 +52,8 @@ subtitle: "Budowa i działanie CPU"
 	</div>
 {{< /slide >}}
 
+{{< part "Budowa CPU" >}}
+{{< part "Rejestry i mapa pamięci" >}}
+{{< part "RISC vs CISC" >}}
+{{< part "32-bit" >}}
+{{< part "Architektury" >}}
