@@ -24,7 +24,6 @@ subtitle: "Budowa i działanie mikrokontrolera"
 {{< img-slide minecraft.webp />}}
 
 {{< part "Budowa mikrokontrolera" >}}
-
 {{< img-slide xmega-regular.avif />}}
 {{< img-slide xmega-pinout.webp />}}
 {{< slide >}}
@@ -72,7 +71,27 @@ subtitle: "Budowa i działanie mikrokontrolera"
 	</div>
 {{< /slide >}}
 
-{{< part "Rejestry i mapa pamięci" >}}
+{{< part "Mapa pamięci" >}}
+{{< img-slide omap-memory-1.webp />}}
+{{< img-slide omap-memory-2.webp />}}
+{{< img-slide omap-memory-3.webp />}}
+
 {{< part "RISC vs CISC" >}}
+{{< slide "Porównanie" >}}
+	{{< table "RISC" "CISC" >}}
+		{{< row "<em>Reduced Instruction Set Computer</em>" "<em>Complex Instruction Set Computer</em>" >}}
+		{{< row "~100 instrukcji" "~1000 instrukcji" >}}
+		{{< row "proste instrukcje" "złożone instrukcje" >}}
+		{{< row "szybsze instrukcje" "wolniejsze instrukcje" >}}
+		{{< row "dłuższy kod" "krótszy kod" >}}
+		{{< row "mniejsze zużycie mocy" "większe zużycie mocy" >}}
+		{{< row "proste adresowanie" "złożone adresowanie" >}}
+		{{< row "hardwired" "mikrokod" >}}
+		{{< row "mniej rejestrów" "więcej rejestrów" >}}
+		{{< row "1…2 cykle (CPI)" "1…100 cykli" >}}
+		{{< row "load/store" "" >}}
+	{{< /table >}}
+{{< /slide >}}
+
 {{< part "32-bit" >}}
 {{< part "Architektury" >}}
