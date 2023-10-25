@@ -15,17 +15,19 @@ test
 	{{< lf >}}trzeci punkt
 {{< /ul-slide >}}
 
-{{< code-slide "1|3-4" >}}
-	int davinci_set_sysclk_rate(struct clk *clk, unsigned long rate)
-	{
-		unsigned v;
-		struct pll_data *pll;
-		unsigned long input;
-		unsigned ratio = 0;
+{{< slide >}}
+	{{< code lines="1|3-4" >}}
+		int davinci_set_sysclk_rate(struct clk *clk, unsigned long rate)
+		{
+			unsigned v;
+			struct pll_data *pll;
+			unsigned long input;
+			unsigned ratio = 0;
 
-		/* If this is the PLL base clock, wrong function to call */
-		if (clk->pll_data)
-			return -EINVAL;
-{{< /code-slide >}}
+			/* If this is the PLL base clock, wrong function to call */
+			if (clk->pll_data)
+				return -EINVAL;
+	{{< /code >}}
+{{< /slide >}}
 
 {{< img-slide rc-oscillator.png />}}
