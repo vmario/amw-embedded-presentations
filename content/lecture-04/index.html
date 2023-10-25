@@ -77,21 +77,127 @@ subtitle: "Budowa i działanie mikrokontrolera"
 {{< img-slide omap-memory-3.webp />}}
 
 {{< part "RISC vs CISC" >}}
+
+{{< slide "Definicje" >}}
+<dl>
+	<dt>RISC
+	<dd><em>Reduced Instruction Set Computer</em>
+	<dt>CISC
+	<dd><em>Complex Instruction Set Computer</em>
+</dl>
+{{< /slide >}}
+
 {{< slide "Porównanie" >}}
-	{{< table "RISC" "CISC" >}}
-		{{< row "<em>Reduced Instruction Set Computer</em>" "<em>Complex Instruction Set Computer</em>" >}}
-		{{< row "~100 instrukcji" "~1000 instrukcji" >}}
-		{{< row "proste instrukcje" "złożone instrukcje" >}}
-		{{< row "szybsze instrukcje" "wolniejsze instrukcje" >}}
-		{{< row "dłuższy kod" "krótszy kod" >}}
-		{{< row "mniejsze zużycie mocy" "większe zużycie mocy" >}}
-		{{< row "proste adresowanie" "złożone adresowanie" >}}
-		{{< row "hardwired" "mikrokod" >}}
-		{{< row "mniej rejestrów" "więcej rejestrów" >}}
-		{{< row "1…2 cykle (CPI)" "1…100 cykli" >}}
-		{{< row "load/store" "" >}}
+	{{< table "" "RISC" "CISC" >}}
+	{{< table-body trClass="fragment" >}}
+		{{< row "zbiór instrukcji" "~100" "~1000" >}}
+		{{< row "instrukcje" "proste" "złożone" >}}
+		{{< row "CPI" "1…2" "1…100" >}}
+		{{< row "adresowanie" "proste" "złożone" >}}
+		{{< row "obliczenia" "<em>register-register</em><br>(<em>load-store</em>)" "<em>register-memory</em>" >}}
+		{{< row "kod" "dłuższy" "krótszy" >}}
+	{{< /table-body >}}
 	{{< /table >}}
 {{< /slide >}}
 
-{{< part "32-bit" >}}
-{{< part "Architektury" >}}
+{{< slide "Porównanie" >}}
+	{{< code lang="x86asm" >}}
+		; CISC
+		; Pomnóż liczby pod adresami 0x04 i 0x08 w RAM.
+		; Wynik zapisz w 0x04.
+		MUL 0x04, 0x08
+	{{< /code >}}
+	{{< code lang="x86asm" >}}
+		; RISC
+		MOV R1, 0x04 ; Załaduj pierwszą liczbę z RAM do R1.
+		MOV R2, 0x08 ; Załaduj drugą liczbę z RAM do R2.
+		MUL R1, R2 ; Pomnóż liczby i umieść wynik w R1.
+		MOV 0x04, R1 ; Przepisz wynik z R1 do RAM.
+	{{< /code >}}
+{{< /slide >}}
+
+{{< slide "Porównanie" >}}
+	{{< table "" "RISC" "CISC" >}}
+	{{< table-body trClass="fragment" >}}
+		{{< row "rejestry" "więcej" "mniej" >}}
+		{{< row "tranzystorów" "mniej" "więcej" >}}
+		{{< row "zużycie mocy" "mniejsze" "większe" >}}
+		{{< row "implementacja" "hardwired" "mikrokod" >}}
+		{{< row "przykłady" "AVR, PIC, ARM, RISC-V, SPARC" "8051, x86, x86-64" >}}
+	{{< /table-body >}}
+	{{< /table >}}
+{{< /slide >}}
+
+{{< part "Liczba bitów" >}}
+
+{{< ul-slide "O czym mówi liczba bitów?" >}}
+	{{< lf >}}szerokość słowa AlU
+	{{< lf >}}rozmiar rozkazu
+	{{< lf >}}rozmiar rejestrów
+	{{< lf >}}szerokość szyn danych
+	{{< lf >}}wielkość przestrzeni adresowej
+{{< /ul-slide >}}
+
+{{< slide "1-bit" >}}
+	<ul>
+		<li>MC14500BCP
+		<li>sterowniki PLC
+	</ul>
+{{< /slide >}}
+
+{{< slide "8-bit" >}}
+	<ul>
+		<li>Intel 8008
+		<li>Intel 8051
+		<li>Z80
+		<li>AVR
+		<li>AVR XMEGA
+		<li>PIC
+		<li>PIC16
+		<li>PicoBlaze
+	</ul>
+{{< /slide >}}
+
+{{< slide "16-bit" >}}
+	<ul>
+		<li>Intel 8088
+		<li>Motorola 68HC12
+		<li>NEC V20
+		<li>TI MSP430
+		<li>Zilog Z8000
+	</ul>
+{{< /slide >}}
+
+{{< slide "32-bit" >}}
+	<ul>
+		<li>Intel 386
+		<li>Intel Pentium
+		<li>AMD Duron
+		<li>Intel Core Duo
+		<li>PIC32
+		<li>ARM
+		<li>RISC-V
+	</ul>
+{{< /slide >}}
+
+{{< slide "64-bit" >}}
+	<ul>
+		<li>Intel Core
+		<li>AMD Ryzen
+		<li>ARM
+		<li>RISC-V
+	</ul>
+{{< /slide >}}
+
+{{< part "ISA<br>(<em>Instruction Set Architecture</em>)" >}}
+
+{{< slide "Przykłady" >}}
+	<ul>
+		<li>x86 (IA-32)
+		<li>x86-64
+		<li>AVR
+		<li>ARM
+		<li>RISC-V
+	</ul>
+{{< /slide >}}
+
