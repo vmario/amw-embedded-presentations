@@ -1,4 +1,4 @@
 <section>
-	<h3>{{ .Get 0 | safeHTML }}</h3>
+	{{ with .Get 0 }}<h3>{{ . | safeHTML }}</h3>{{ end }}
 	{{ .Inner }}
 </section>
