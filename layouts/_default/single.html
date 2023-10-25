@@ -13,6 +13,12 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chalkboard/style.css">
 		<style>
 			.reveal pre code {max-height: 600px;}
+
+			/* Fix for Chrome */
+			.reveal .rstack {
+				justify-content: center;
+				align-content: center;
+			}
 		</style>
 		<title>{{ with .Title }}{{ . }}{{ else }}Wykład{{ end }}{{ with .Params.subtitle }}: {{ . }}{{ end }}</title>
 	</head>
