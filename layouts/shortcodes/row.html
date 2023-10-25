@@ -1,1 +1,1 @@
-	<tr>{{ range .Params }}<td>{{ . | safeHTML }}</td>{{ end }}</tr>
+	<tr {{ with .Parent }}class="{{ .Get "trClass" }}"{{ end -}}>{{ range .Params }}<td>{{ . | safeHTML }}</td>{{ end }}</tr>
