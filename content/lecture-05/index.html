@@ -1,0 +1,222 @@
+---
+title: "Wykład 5"
+subtitle: "Kod źródłowy i kod maszynowy"
+---
+
+{{< part "Budowa programu" >}}
+
+{{< slide-animate "Funkcja <code>main</code>" >}}
+	{{< code lang="cpp" lines="1-2" >}}
+		int main() {
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Inicjalizacja" >}}
+	{{< code lang="cpp" lines="1-3,6" >}}
+		void gpioInit() {
+			// Inicjalizacja GPIO
+		}
+
+		int main() {
+			gpioInit();
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Nieskończona pętla" >}}
+	{{< code lang="cpp" lines="7-8" >}}
+		void gpioInit() {
+			// Inicjalizacja GPIO
+		}
+
+		int main() {
+			gpioInit();
+			while (true) {
+			}
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Funkcja główna" >}}
+	{{< code lang="cpp" lines="5-7,13" >}}
+		void gpioInit() {
+			// Inicjalizacja GPIO
+		}
+
+		void ledBlink() {
+			// Mruganie diodą
+		}
+
+		int main()
+		{
+			gpioInit();
+			while (true) {
+				ledBlink();
+			}
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Obsługa przerwań" >}}
+	{{< code lang="cpp" lines="9-11" >}}
+		void gpioInit() {
+			// Inicjalizacja GPIO
+		}
+
+		void ledBlink() {
+			// Mruganie diodą
+		}
+
+		ISR(TIMER0_OVF_vect) {
+			// Obsługa timera
+		}
+
+		int main()
+		{
+			gpioInit();
+			while (true) {
+				ledBlink();
+			}
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Komunikacja przerwań z pętlą główną" >}}
+	{{< code lang="cpp" lines="5,9-12,16" >}}
+		void gpioInit() {
+			// Inicjalizacja GPIO
+		}
+
+		volatile bool timerFlag;
+
+		void ledBlink() {
+			// Mruganie diodą
+			if (timerFlag) {
+				// Reakcja na upływ czasu
+				timerFlag = false;
+			}
+		}
+
+		ISR(TIMER0_OVF_vect) {
+			timerFlag = true;
+		}
+
+		int main()
+		{
+			gpioInit();
+			while (true) {
+				ledBlink();
+			}
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< part "Proces kompilacji i linkowania" >}}
+{{< img-slide compiling.webp />}}
+
+{{< part "Pliki nagłówkowe" >}}
+
+{{< slide "Deklaracja i definicja funkcji" >}}
+	{{<	fragment "foo.h (deklaracja z dokumentacją)" >}}
+		{{< code lang="cpp" lines="1-6" >}}
+			/** Robi coś ważnego.
+			 *  @param argument Liczba wejściowa.
+			 *  @return Kod błędu. */
+			int foo(int argument);
+		{{< /code >}}
+	{{< /fragment >}}
+	{{<	fragment "foo.c (definicja)" >}}
+		{{< code lang="cpp" lines="1,3,5" >}}
+			#include "foo.h"
+
+			int foo(int argument) {
+				// Bardzo mądra funkcja
+			}
+		{{< /code >}}
+	{{< /fragment >}}
+	{{<	fragment "bar.c (wywołanie)" >}}
+		{{< code lang="cpp" lines="1,4" >}}
+			#include "foo.h"
+
+			void bar() {
+				int result = foo(42);
+			}
+		{{< /code >}}
+	{{< /fragment >}}
+{{< /slide >}}
+
+{{< slide "Deklaracja i definicja zmiennej" >}}
+	{{<	fragment "foo.h (deklaracja z dokumentacją)" >}}
+		{{< code lang="cpp" lines="1" >}}
+			int foo; ///< Licznik dziwnych zdarzeń.
+		{{< /code >}}
+	{{< /fragment >}}
+	{{<	fragment "foo.c (definicja)" >}}
+		{{< code lang="cpp" lines="1,3,5" >}}
+			#include "foo.h"
+
+			int foo = 42;
+		{{< /code >}}
+	{{< /fragment >}}
+	{{<	fragment "bar.c (wywołanie)" >}}
+		{{< code lang="cpp" lines="1,4" >}}
+			#include "foo.h"
+
+			void bar() {
+				printf("%d\n", foo);
+			}
+		{{< /code >}}
+	{{< /fragment >}}
+{{< /slide >}}
+
+{{< part "Kod maszynowy" >}}
+
+{{< img-slide avr-gcc-1.webp >}}
+	{{< note >}}<code>rcall</code> to trik w celu zarezerwowania jednym rozkazem dwóch bajtów na stosie.{{< /note >}}
+	{{< note >}}<code>r28:r29</code> to rejestr <code>Y</code>.{{< /note >}}
+	{{< note >}}<code>r18–r27, r30, r31</code> nie muszą być odkładane na stosie, bo kompilator zakłada, że (poza przerwaniami) będzie ich używał tak, że nie ma takiej potrzeby.{{< /note >}}
+{{< /img-slide >}}
+{{< img-slide avr-gcc-2.webp />}}
+{{< img-slide avr-gcc-3.webp />}}
+{{< img-slide avr-gcc-4.webp />}}
+{{< img-slide avr-gcc-5.webp />}}
+
+{{< part "Sekcje pamięci" >}}
+{{< img-slide c-code-gen.webp />}}
+
+{{< part "Zarządzanie pamięcią" >}}
+
+{{< ul-slide "Dane statyczne" >}}
+	{{< lf >}}stałe, zmienne globalne i statyczne (<code>static</code>)
+	{{< lf >}}deterministyczne
+	{{< lf >}}praktycznie natychmiastowe
+	{{< lf >}}bardzo bezpieczne (<em>safety-critical</em>) 💪
+{{< /ul-slide >}}
+
+{{< ul-slide "Stos" >}}
+	{{< lf >}}deterministyczny
+	{{< lf >}}szybki
+	{{< lf >}}wspierany sprzętowo
+	{{< lf >}}możliwość przepełnienia np. przez rekurencję 🤯
+	{{< lf >}}zazwyczaj małe dane
+	{{< lf >}}dane lokalne
+	{{< lf >}}dane dostępne przez czas życia funkcji
+{{< /ul-slide >}}
+
+{{< ul-slide "Sterta" >}}
+	{{< lf >}}niedeterministyczna
+	{{< lf >}}realizacja programowa
+	{{< lf >}}fragmentacja
+	{{< lf >}}dane dostępne przez nieograniczony czas
+	{{< lf >}}wycieki pamięci
+	{{< lf >}}obsługa przez wskaźniki
+	{{< lf >}}C: <code>malloc()</code>, <code>free()</code>
+	{{< lf >}}C++: <del><code>new</code></del>, <del><code>delete</code></del>,
+		<code>unique_ptr&lt;T&gt;</code>, <code>shared_ptr&lt;T&gt;</code>
+{{< /ul-slide >}}
+
+{{< part "Wektor przerwań" >}}
+
+{{< part "Wskaźniki na zmienne i funkcje" >}}
+
