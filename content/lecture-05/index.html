@@ -218,5 +218,71 @@ subtitle: "Kod źródłowy i kod maszynowy"
 
 {{< part "Wektor przerwań" >}}
 
+{{< slide-animate "Listing" >}}
+	{{< code lines="1-2|3,4,6|5" >}}
+		00000000 <__vectors>:
+		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+	{{< /code >}}
+{{< /slide-animate >}}
+{{< slide-animate "Listing" >}}
+	{{< code lines="2,8-16" >}}
+		00000000 <__vectors>:
+		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+
+		0000008c <__ctors_end>:
+		  8c:	11 24       	eor	r1, r1
+		  8e:	1f be       	out	0x3f, r1	; 63
+		  90:	cf ef       	ldi	r28, 0xFF	; 255
+		  92:	d0 e4       	ldi	r29, 0x40	; 64
+		  94:	de bf       	out	0x3e, r29	; 62
+		  96:	cd bf       	out	0x3d, r28	; 61
+		  98:	0e 94 5c 00 	call	0xb8	; 0xb8 &lt;main&gt;
+		  9c:	0c 94 65 00 	jmp	0xca	; 0xca <_exit>
+	{{< /code >}}
+{{< /slide-animate >}}
+{{< slide-animate "Listing" >}}
+	{{< code lines="3,4,6,8-9,1" >}}
+		00000000 <__vectors>:
+		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+
+		000000a0 <__bad_interrupt>:
+		  a0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+	{{< /code >}}
+{{< /slide-animate >}}
+{{< slide-animate "Listing" >}}
+	{{< code lines="5,8-18" >}}
+		00000000 <__vectors>:
+		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+
+		000000a4 <__vector_3>:
+		  a4:	1f 92       	push	r1
+		  a6:	0f 92       	push	r0
+		  a8:	0f b6       	in	r0, 0x3f	; 63
+		  aa:	0f 92       	push	r0
+		  ac:	11 24       	eor	r1, r1
+		  ae:	0f 90       	pop	r0
+		  b0:	0f be       	out	0x3f, r0	; 63
+		  b2:	0f 90       	pop	r0
+		  b4:	1f 90       	pop	r1
+		  b6:	18 95       	reti
+	{{< /code >}}
+{{< /slide-animate >}}
+
 {{< part "Wskaźniki na zmienne i funkcje" >}}
 
