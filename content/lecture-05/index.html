@@ -1,9 +1,9 @@
 ---
 title: "Wykład 5"
-subtitle: "Kod źródłowy i kod maszynowy"
+subtitle: "Budowa programu"
 ---
 
-{{< part "Budowa programu" >}}
+{{< part "Program <em>bare-metal</em>" >}}
 
 {{< slide-animate "Funkcja <code>main</code>" >}}
 	{{< code lang="cpp" lines="1-2" >}}
@@ -113,7 +113,7 @@ subtitle: "Kod źródłowy i kod maszynowy"
 {{< /slide-animate >}}
 
 {{< part "Proces kompilacji i linkowania" >}}
-{{< img-slide compiling.webp />}}
+{{< img-slide compiling.webp false "background-color: white" />}}
 
 {{< part "Pliki nagłówkowe" >}}
 
@@ -183,7 +183,9 @@ subtitle: "Kod źródłowy i kod maszynowy"
 {{< img-slide avr-gcc-5.webp />}}
 
 {{< part "Sekcje pamięci" >}}
-{{< img-slide c-code-gen.webp />}}
+{{< img-slide c-code-gen.webp >}}
+	{{< note >}}<dl><dt>.bss</dt><dd>Block Starting Symbol</dd></dl>{{< /note >}}
+{{< /img-slide >}}
 
 {{< part "Zarządzanie pamięcią" >}}
 
@@ -224,7 +226,7 @@ subtitle: "Kod źródłowy i kod maszynowy"
 		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
 		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
-		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa4 <__vector_3>
 		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 	{{< /code >}}
 {{< /slide-animate >}}
@@ -234,7 +236,7 @@ subtitle: "Kod źródłowy i kod maszynowy"
 		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
 		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
-		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa4 <__vector_3>
 		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 
 		0000008c <__ctors_end>:
@@ -247,6 +249,7 @@ subtitle: "Kod źródłowy i kod maszynowy"
 		  98:	0e 94 5c 00 	call	0xb8	; 0xb8 &lt;main&gt;
 		  9c:	0c 94 65 00 	jmp	0xca	; 0xca <_exit>
 	{{< /code >}}
+	{{< note >}}<code>eor r1, r1</code>, bo <code>ldi</code> działa tylko na rejestrach <code>r16…r31</code>.{{< /note >}}
 {{< /slide-animate >}}
 {{< slide-animate "Listing" >}}
 	{{< code lines="3,4,6,8-9,1" >}}
@@ -254,7 +257,7 @@ subtitle: "Kod źródłowy i kod maszynowy"
 		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
 		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
-		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa4 <__vector_3>
 		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 
 		000000a0 <__bad_interrupt>:
@@ -267,7 +270,7 @@ subtitle: "Kod źródłowy i kod maszynowy"
 		   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
 		   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 		   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
-		   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__vector_3>
+		   c:	0c 94 50 00 	jmp	0xa0	; 0xa4 <__vector_3>
 		  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
 
 		000000a4 <__vector_3>:
@@ -286,3 +289,37 @@ subtitle: "Kod źródłowy i kod maszynowy"
 
 {{< part "Wskaźniki na zmienne i funkcje" >}}
 
+{{< img-slide pointers-stack.webp "Wskaźnik do zmiennej na stosie" >}}
+	{{< code lang="cpp" lines="1|2|3" >}}
+		*d = 6; // a ← 0x0000 0006
+		d = &b; // d ← 0x0080 421b
+		*d = 6; // b ← 0x0000 0006
+	{{< /code >}}
+{{< /img-slide >}}
+
+{{< img-slide pointers-heap.webp "Wskaźnik do zmiennej na stercie" />}}
+
+{{< slide "Wskaźnik na funkcję" >}}
+	{{< code lang="cpp" lines="1-3|5-13|16-19" >}}
+		int increment(int number) {
+			return number + 1;
+		}
+
+		void processArray(
+				int* array,
+				size_t size,
+				int(*algorithm)(int)
+		) {
+			while (size-- > 0) {
+				array[size] = algorithm(array[size]);
+			}
+		}
+
+		int main() {
+			const size_t SIZE = 8;
+			int foo[SIZE] = {0, 1, 2, 3, 4, 5, 6, 7};
+			processArray(foo, SIZE, increment);
+			// foo == {1, 2, 3, 4, 5, 6, 7, 8}
+		}
+	{{< /code >}}
+{{< /slide >}}
