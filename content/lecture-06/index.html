@@ -3,7 +3,7 @@ title: "Wykład 6"
 subtitle: "Czytanie not katalogowych"
 ---
 
-{{< part "XXXX" >}}
+{{< part "Noty katalogowe" >}}
 
 {{< ul-slide "Źródła not katalogowych" >}}
 	{{< lf >}}Strona producenta
@@ -82,3 +82,132 @@ subtitle: "Czytanie not katalogowych"
 {{< img-slide m32-packaging.webp />}}
 {{< img-slide m32-datasheet-history.webp />}}
 {{< img-slide m32-errata.webp />}}
+
+{{< part "Korzystanie z rejestrów procesora" >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		0x7A = 196; // ❌ Błąd!
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		(uint8*)0x7A = 196; // ❌ Błąd!
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		(*(uint8*))0x7A = 196; // 🤔 Nie zawsze zadziała.
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		(*(volatile uint8*))0x7A = 196; // 🧐
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		(*(volatile uint8*))0x7A = (1 << 7) | (1 << 6) | (1 << 4);
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#define ADCSRA (*(volatile uint8*))0x7A
+		ADCSRA = (1 << 7) | (1 << 6) | (1 << 4);
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#define ADCSRA ((*(volatile uint8*))0x7A)
+		#define _BV(bit) (1 << (bit))
+		ADCSRA = _BV(7) | _BV(6) | _BV(4);
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#define ADCSRA ((*(volatile uint8*))0x7A)
+		#define _BV(bit) (1 << (bit))
+		#define ADEN 7
+		#define ADSC 6
+		#define ADPS2 2
+		ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS2);
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Przypisanie wartości do rejestru" >}}
+	<img src="register-assign.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#include &lt;avr/io.h&gt;
+		ADCSRA = _BV(ADEN) | _BV(ADSC) | _BV(ADPS2); // 🥳
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Ustawianie bitów" >}}
+	<img src="register-assign-fail.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#include &lt;avr/io.h&gt;
+		ADCSRA = _BV(ADEN) | _BV(ADPS2);
+
+		ADCSRA = _BV(ADSC); // Nie o to nam chodziło (╯°□°）╯︵ ┻━┻
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Ustawianie bitów" >}}
+	<img src="register-or.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#include &lt;avr/io.h&gt;
+		ADCSRA = _BV(ADEN) | _BV(ADPS2);
+
+		ADCSRA = ADCSRA | _BV(ADSC);
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Ustawianie bitów" >}}
+	<img src="register-or.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#include &lt;avr/io.h&gt;
+		ADCSRA = _BV(ADEN) | _BV(ADPS2);
+
+		ADCSRA |= _BV(ADSC);
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Zerowanie bitów" >}}
+	<img src="register-and.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#include &lt;avr/io.h&gt;
+		ADCSRA = _BV(ADEN) | _BV(ADPS2);
+
+		ADCSRA = ADCSRA & ~(_BV(ADSC));
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Zerowanie bitów" >}}
+	<img src="register-and.svg" style="background-color: white; width: 800px">
+	{{< code lang="cpp" >}}
+		#include &lt;avr/io.h&gt;
+		ADCSRA = _BV(ADEN) | _BV(ADPS2);
+
+		ADCSRA &= ~(_BV(ADSC));
+	{{< /code >}}
+{{< /slide-animate >}}
+
