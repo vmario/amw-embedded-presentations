@@ -91,7 +91,9 @@ subtitle: "Czytanie not katalogowych"
 {{< img-slide m32-clock.webp />}}
 {{< img-slide m32-standby.webp />}}
 {{< img-slide m32-reset.webp />}}
-{{< img-slide m32-interrupts.webp />}}
+{{< img-slide m32-interrupts.webp >}}
+{{< note >}}<code>_delay_ms()</code> w przerwaniu. Przeciążanie Linuksa przerwaniami od Ethernetu.{{< /note >}}
+{{< /img-slide >}}
 {{< img-slide m32-io.webp />}}
 {{< img-slide m32-bootloader.webp />}}
 {{< img-slide m32-fuse-bits.webp />}}
@@ -230,3 +232,68 @@ subtitle: "Czytanie not katalogowych"
 	{{< /code >}}
 {{< /slide-animate >}}
 
+{{< part "Zwiększanie wydajności" >}}
+
+
+{{< ul-slide "Miary wydajności" >}}
+operacja > instrukcja
+{{< /ul-slide >}}
+
+{{< img-slide gflops.webp "Oszukujo?" >}}
+{{< /img-slide >}}
+
+{{< img-slide simd.svg "SIMD" >}}
+{{< /img-slide >}}
+
+{{< ul-slide "Taksonomia Flynna" >}}
+	<dl>
+		<div class="fragment">
+			<dt>SISD (<em>Single Instruction, Single Data</em>)
+			<dd>zwykły komputer
+		</div>
+		<div class="fragment">
+			<dt>SIMD (<em>Single Instruction, Multiple Data</em>)
+			<dd>operacje wektorowe
+		</div>
+		<div class="fragment">
+			<dt>MISD (<em>Multiple Instruction, Single Data</em>)
+			<dd>redundancja w systemach krytycznych
+		</div>
+		<div class="fragment">
+			<dt>MIMD (<em>Multiple Instruction, Multiple Data</em>)
+			<dd>komputery wieloprocesorowe, klastry obliczeniowe, karty graficzne, koparki kryptowalut
+		</div>
+	</dl>
+{{< /ul-slide >}}
+
+{{< img-slide c71x-corepac.webp />}}
+
+{{< img-slide vector-side-b.webp "Technical Reference Manual" >}}
+{{< note >}}Zwróć uwagę na <em>float</em> i <em>double</em> oraz na 16-bitowe obliczenia stałoprzecinkowe (a nie 64-bitowe).{{< /note >}}
+<div class="r-stack">
+<div class="fragment fade-in-then-out">\(128\text{ op} \cdot 1\text{ GHz}\)</div>
+<div class="fragment fade-in-then-out">\(128\text{ op} \cdot 1\text{ GHz} = 128 \text{ op} \cdot 10^{9} \cdot \frac{1}{s}\)</div>
+<div class="fragment fade-in-then-out">\(128\text{ op} \cdot 1\text{ GHz} = \frac{128 \text{ op} \cdot 10^{9}}{s}\)</div>
+<div class="fragment fade-in-then-out">\(128\text{ op} \cdot 1\text{ GHz} = 128\text{ GOPS}\)</div>
+<div class="fragment">\(128\text{ op} \cdot 1\text{ GHz} = 128\text{ GOPS} \neq 256\text{ GOPS}\)</div>
+</div>
+<div class="fragment">Gdzie moje GOPS-y? 😠</div>
+{{< /img-slide >}}
+
+{{< img-slide mac.png "MAC (<em>Multiply-accumulate</em>)" >}}
+{{< note >}}Albo Multiply-add z oddzielnym wejściem argumentu dodawanego.{{< /note >}}
+<div class="r-stack">
+<div class="fragment fade-in-then-out">\(128\text{ MAC} \cdot 1\text{ GHz}\)</div>
+<div class="fragment fade-in-then-out">\(128\text{ MAC} \cdot 1\text{ GHz} = 128 \cdot 2 \text{ op} \cdot 1\text{ GHz}\)</div>
+<div class="fragment">\(128\text{ MAC} \cdot 1\text{ GHz} = 256\text{ GOPS}\) ✅</div>
+</div>
+{{< /img-slide >}}
+
+{{< ul-slide "Zastosowania MAC" >}}
+{{< /ul-slide >}}
+
+{{< slide "MMA" >}}
+{{< /slide >}}
+
+{{< slide "GPT" >}}
+{{< /slide >}}
