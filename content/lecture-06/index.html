@@ -290,10 +290,33 @@ operacja > instrukcja
 {{< /img-slide >}}
 
 {{< ul-slide "Zastosowania MAC" >}}
+	{{< lf >}}FFT (<em>Fast Fourier Transform</em>)
+	{{< lf >}}DSP (<em>Digital Signal Processing</em>)
+	{{< lf >}}CNN (<em>Convolutional Neural Network</em>)
 {{< /ul-slide >}}
 
-{{< slide "MMA" >}}
+{{< slide "MMA (<em>Matrix Multiplication Accelerator</em>)" >}}
+	<div class="r-stack">
+	<div class="fragment fade-in-then-out">\(64 \cdot 64\text{ MAC} \cdot 1\text{ GHz}\)</div>
+	<div class="fragment fade-in-then-out">\(64 \cdot 64\text{ MAC} \cdot 1\text{ GHz} = 4096\text{ MAC} \cdot 1\text{ GHz}\)</div>
+	<div class="fragment fade-in-then-out">\(64 \cdot 64\text{ MAC} \cdot 1\text{ GHz} = 8192\text{ op} \cdot 1\text{ GHz}\)</div>
+	<div class="fragment">\(64 \cdot 64\text{ MAC} \cdot 1\text{ GHz} = 8\text{ TOPS}\) ✅</div>
+	</div>
 {{< /slide >}}
 
+{{< ul-slide "Zastosowania MMA" >}}
+	{{< lf >}}CNN (<em>Convolutional Neural Network</em>)
+	{{< lf >}}FFT (<em>Fast Fourier Transform</em>)
+	{{< lf >}}DSP (<em>Digital Signal Processing</em>)
+	{{< lf >}}algebra liniowa
+{{< /ul-slide >}}
+
 {{< slide "GPT" >}}
+<p class="fragment">Liczba neuronów w mózgu ~ 100 miliardów
+<p class="fragment">Liczba współczynników Chat GPT 3 ~ 175 miliardów
+	<div class="r-stack">
+		<div class="fragment fade-in-then-out">\(\frac{175\cdot10^9 \cdot 2\text{ op}}{8\text{ TOPS}}\)</div>
+		<div class="fragment fade-in-then-out">\(\frac{175\cdot10^9 \cdot 2\text{ op}}{8\text{ TOPS}} = \frac{350\cdot10^9\text{ op}}{8 \cdot10^{12}\text{ op}\cdot s^{-1}}\)</div>
+		<div class="fragment">\(\frac{175\cdot10^9 \cdot 2\text{ op}}{8\text{ TOPS}} = \frac{350\cdot10^9\text{ op}}{8 \cdot10^{12}\text{ op}\cdot \text{s}^{-1}} = 0{,}04375\text{ s}\)</div>
+	</div>
 {{< /slide >}}
