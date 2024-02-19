@@ -1,0 +1,136 @@
+---
+title: "Wykład 7"
+subtitle: "Magistsrale komunikacyjne"
+---
+
+{{< part "Magistrale równoległe vs. szeregowe" >}}
+
+{{< ul-slide "Właściwości magistral równoległych" >}}
+	{{< lf >}}naturalne dla procesora
+	{{< lf >}}szybsze od szeregowych (przy tym samym taktowaniu)
+	{{< lf >}}wymagają wiele linii (miedź kosztuje!)
+	{{< lf >}}przy szybkich zegarach na długich liniach zniekształcają sygnał
+{{< /ul-slide >}}
+
+{{< ul-slide "Właściwości magistral szeregowych" >}}
+	{{< lf >}}wymagają peryferiałów tłumaczących je na magistrale równoległe
+	{{< lf >}}wolniejsze od równoległych (przy tym samym taktowaniu)
+	{{< lf >}}wymagają niewiele linii
+	{{< lf >}}możliwe jest stosowanie szybkich zegarów na długich liniach
+{{< /ul-slide >}}
+
+{{< slide "Ewolucja magistral" >}}
+	<h4>LPT &rarr; USB</h4>
+	<img src="lpt-usb.webp" height="160">
+{{< /slide >}}
+{{< slide "Ewolucja magistral" >}}
+	<h4>ATA &rarr; SATA</h4>
+	<img src="ata-sata.webp" height="160">
+{{< /slide >}}
+{{< slide "Ewolucja magistral" >}}
+	<h4>PCI &rarr; PCI-E <span class="fragment">x1, x2, x4, x8, x16</span></h4>
+	<img src="pci-pcie.png" height="160">
+{{< /slide >}}
+
+{{< part "Magistrale równoległe" >}}
+
+{{< slide "Interfejsy pamięci RAM" >}}
+	<p>DDR SDRAM 5 (<em>Double Data Rate Synchronous Dynamic Random-Access Memory 5</em>)</p>
+	<ul>
+		<li class="fragment">zegar do 3,2&nbsp;GHz z aktywnymi dwoma zboczami
+		<li class="fragment">dwie szyny danych po 32&nbsp;bity
+	</ul>
+	<div class="r-stack">
+		<div class="fragment fade-in-then-out">\(B = 3{,}2\cdot10^9\text{Hz}\cdot2\cdot32\text{b}\cdot2\)</div>
+		<div class="fragment fade-in-then-out">\(B = 3{,}2\cdot10^9\text{Hz}\cdot2\cdot32\text{b}\cdot2 = 409{,}6\text{Gb/s}\)</div>
+	</div>
+{{< /slide >}}
+
+{{< img-slide ddr-device.webp />}}
+{{< img-slide ddr4-ddr5.webp />}}
+{{< img-slide emifa.webp />}}
+
+{{< ul-slide "Magistrale równoległe w systemach wbudowanych" >}}
+	{{< lf >}}pamięci RAM
+	{{< lf >}}pamięci flash
+	{{< lf >}}MII (<em>Media-Independent Interface</em>)
+	{{< lf >}}LCD
+{{< /ul-slide >}}
+
+{{< part "Magistrale szeregowe" >}}
+
+{{< ul-slide "Konfiguracja peryferiałów w <span style=\"text-transform: none\">&micro;</span>C" >}}
+	{{< lf >}}taktowanie
+	{{< lf >}}polaryzacja
+	{{< lf >}}długość słowa
+	{{< lf >}}sposób obsługi buforów
+	{{< lf >}}przerwania i współpraca z DMA
+{{< /ul-slide >}}
+
+{{< ul-slide "RS-232" >}}
+	{{< lf >}}powstał ok. 60 lat temu
+	{{< lf >}}redukowalny do bardzo prostej magistrali <em>point-to-point</em>
+	{{< lf >}}rozszerzalny do szyny z wielodostępem
+	{{< lf >}}wciąż spotykany w PC
+	{{< lf >}}wykorzystywany w automatyce (np. Modbus na RS-485)
+	{{< lf >}}bardzo dobre konwertery na USB (FT232, Moxa)
+	{{< lf >}}wymaga zegara o dokładności &lt;1%
+	{{< lf >}}w &micro;C obsługiwany przez USART (<em>Universal Synchronous and Asynchronous serial Receiver and Transmitter</em>)
+{{< /ul-slide >}}
+
+{{< img-slide dte-dte.jpg />}}
+{{< img-slide rs232-trace.svg />}}
+{{< img-slide rs485.png />}}
+
+{{< ul-slide "SPI" >}}
+	{{< lf >}}<em>Serial Peripheral Interface</em>
+	{{< lf >}}używany do komunikacji między układami scalonymi
+	{{< lf >}}umożliwia wielodostęp, ale wymaga dodatkowych linii
+	{{< lf >}}posiada linię zegarową
+	{{< lf >}}prosty i przewidywalny
+	{{< lf >}}komunikacja zawsze zachodzi w dwie strony jednocześnie
+	{{< lf >}}posiada wersje równoległe np. QSPI
+	{{< lf >}}architektura <em>master-slave</em>
+{{< /ul-slide >}}
+
+{{< img-slide spi-slaves.png false "background-color: white" />}}
+{{< img-slide spi-timing.png />}}
+
+{{< ul-slide "I<sup>2</sup>C" >}}
+	{{< lf >}}<em>Inter-Integrated Circuit</em>
+	{{< lf >}}używany do komunikacji między układami scalonymi
+	{{< lf >}}umożliwia wielodostęp
+	{{< lf >}}wykorzystuje tylko dwie linie + GND
+	{{< lf >}}architektura <em>master-slave</em>
+{{< /ul-slide >}}
+
+{{< img-slide i2c.svg false "background-color: white" />}}
+{{< img-slide i2c-timing.jpg />}}
+
+{{< ul-slide "1-Wire" >}}
+	{{< lf >}}często używany do komunikacji z czujnikami
+	{{< lf >}}wykorzystuje tylko jedną linię + GND
+	{{< lf >}}umożliwa przesyłanie zasilania linią komunikacyjną
+	{{< lf >}}architektura <em>master-slave</em>
+{{< /ul-slide >}}
+
+{{< ul-slide "CAN i LIN" >}}
+	{{< lf >}}stosowane w motoryzacji
+	{{< lf >}}jedna linia różnicowa
+	{{< lf >}}sprzętowy arbitraż
+{{< /ul-slide >}}
+
+{{< img-slide can-timing.png />}}
+{{< img-slide can-frame.png />}}
+
+{{< ul-slide "HDMI" >}}
+	{{< lf >}}<em>High-Definition Multimedia Interface</em>
+	{{< lf >}}TMDS (<em>Transition-Minimized Differential Signaling</em>)
+	{{< lf >}}CEC (<em>Consumer Electronics Control</em>)
+	{{< lf >}}ARC (<em>Audio Return Channel</em>)
+	{{< lf >}}HEC (<em>HDMI Ethernet Channel</em>)
+	{{< lf >}}do 42Gbps (HDMI2.1)
+{{< /ul-slide >}}
+
+{{< img-slide hdmi-connector.gif />}}
+{{< img-slide tmds.svg />}}
