@@ -19,6 +19,9 @@ subtitle: "Magistsrale komunikacyjne"
 	{{< lf >}}możliwe jest stosowanie szybkich zegarów na długich liniach
 {{< /ul-slide >}}
 
+{{< img-slide serdes.svg "SerDes (<em>Serializer/Deserializer</em>)" />}}
+{{< img-slide serdes-j7.png "SerDes w J721E" />}}
+
 {{< slide "Ewolucja magistral" >}}
 	<h4>LPT &rarr; USB</h4>
 	<img src="lpt-usb.webp" height="160">
@@ -89,12 +92,17 @@ subtitle: "Magistsrale komunikacyjne"
 	{{< lf >}}posiada linię zegarową
 	{{< lf >}}prosty i przewidywalny
 	{{< lf >}}komunikacja zawsze zachodzi w dwie strony jednocześnie
-	{{< lf >}}posiada wersje równoległe np. QSPI
 	{{< lf >}}architektura <em>master-slave</em>
 {{< /ul-slide >}}
 
 {{< img-slide spi-slaves.png false "background-color: white" />}}
 {{< img-slide spi-timing.png />}}
+
+{{< ul-slide "SPI na sterydach" >}}
+	{{< lf >}}wersje równoległe: DSPI, QSPI, OSPI
+	{{< lf >}}wersje DDR
+	{{< lf >}}tuningowanie za pomocą linii DQS
+{{< /ul-slide >}}
 
 {{< ul-slide "I<sup>2</sup>C" >}}
 	{{< lf >}}<em>Inter-Integrated Circuit</em>
