@@ -1,0 +1,85 @@
+---
+title: "Wykład 8"
+subtitle: "Obliczenia i optymalizacje"
+---
+
+{{< part "Operacje stałoprzecinkowe" >}}
+
+{{< slide-animate "Zakresy rejestrów" >}}
+	<div class="horizontal-chart">
+		<div><div data-id="1b" style="width: calc(100% * pow(2, 1) / pow(2,1))">2</div></div>
+		<div data-id="1l">1 bit</div>
+	</div>
+{{< /slide-animate >}}
+
+{{< slide-animate "Zakresy rejestrów" >}}
+	<div class="horizontal-chart">
+		<div><div data-id="1b" style="width: calc(100% * pow(2, 1) / pow(2, 8))">2</div></div>
+		<div data-id="1l">1 bit</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="2b" style="width: calc(100% * pow(2, 8) / pow(2, 8))">256</div></div>
+		<div data-id="2l">8 bitów</div>
+	</div>
+{{< /slide-animate >}}
+
+{{< slide-animate "Zakresy rejestrów" >}}
+	<div class="horizontal-chart">
+		<div><div data-id="1b" style="width: calc(100% * pow(2, 1) / pow(2, 16))">2</div></div>
+		<div data-id="1l">1 bit</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="2b" style="width: calc(100% * pow(2, 8) / pow(2, 16))">256</div></div>
+		<div data-id="2l">8 bitów</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="3b" style="width: calc(100% * pow(2, 16) / pow(2, 16))">65&nbsp;536</div></div>
+		<div data-id="3l">16 bitów</div>
+	</div>
+{{< /slide-animate >}}
+
+{{< slide-animate "Zakresy rejestrów" >}}
+	<div class="horizontal-chart">
+		<div><div data-id="1b" style="width: calc(100% * pow(2, 1) / pow(2, 32))">2</div></div>
+		<div data-id="1l">1 bit</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="2b" style="width: calc(100% * pow(2, 8) / pow(2, 32))">256</div></div>
+		<div data-id="2l">8 bitów</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="3b" style="width: calc(100% * pow(2, 16) / pow(2, 32))">65&nbsp;536</div></div>
+		<div data-id="3l">16 bitów</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="4b" style="width: calc(100% * pow(2, 32) / pow(2, 32))">4&nbsp;294&nbsp;967&nbsp;296</div></div>
+		<div data-id="4l">32 bitów</div>
+	</div>
+{{< /slide-animate >}}
+
+{{< slide-animate "Zakresy rejestrów" >}}
+	<div class="horizontal-chart">
+		<div><div data-id="1b" style="width: calc(100% * pow(2, 1) / pow(2, 64))">2</div></div>
+		<div data-id="1l">1 bit</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="2b" style="width: calc(100% * pow(2, 8) / pow(2, 64))">256</div></div>
+		<div data-id="2l">8 bitów</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="3b" style="width: calc(100% * pow(2, 16) / pow(2, 64))">65&nbsp;536</div></div>
+		<div data-id="3l">16 bitów</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="4b" style="width: calc(100% * pow(2, 32) / pow(2, 64))">4&nbsp;294&nbsp;967&nbsp;296</div></div>
+		<div data-id="4l">32 bitów</div>
+	</div>
+	<div class="horizontal-chart">
+		<div><div data-id="5b" style="width: calc(100% * pow(2, 64) / pow(2, 64))">18&nbsp;446&nbsp;744&nbsp;073&nbsp;709&nbsp;551&nbsp;616</div></div>
+		<div data-id="5l">64 bity</div>
+	</div>
+{{< /slide-animate >}}
+
+{{< part "Operacje zmiennoprzecinkowe" >}}
+
+{{< part "Przetwarzanie potokowe" >}}
