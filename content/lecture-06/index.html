@@ -1,6 +1,6 @@
 ---
 title: "Wykład 6"
-subtitle: "Czytanie not katalogowych"
+subtitle: "Noty katalogowe"
 ---
 
 {{< part "Noty katalogowe" >}}
@@ -44,7 +44,7 @@ subtitle: "Czytanie not katalogowych"
 		<div data-id="2l">ATmega32</div>
 	</div>
 	<div class="horizontal-chart">
-		<div><div data-id="3b" style="width: calc(100% * 2091/2091)">&gt;2091</div></div>
+		<div><div data-id="3b" style="width: calc(100% * 2091/2091)">2091</div></div>
 		<div data-id="3l">OMAPL138</div>
 	</div>
 {{< /slide-animate >}}
@@ -59,11 +59,11 @@ subtitle: "Czytanie not katalogowych"
 		<div data-id="2l">ATmega32</div>
 	</div>
 	<div class="horizontal-chart">
-		<div><div data-id="3b" style="width: calc(100% * 2091/24107)">&gt;2091</div></div>
+		<div><div data-id="3b" style="width: calc(100% * 2091/24107)">2091</div></div>
 		<div data-id="3l">OMAPL138</div>
 	</div>
 	<div class="horizontal-chart">
-		<div><div data-id="3b" style="width: calc(100% * 24107/24107)">&gt;24107</div></div>
+		<div><div data-id="3b" style="width: calc(100% * 24107/24107)">24107</div></div>
 		<div data-id="3l">TDA4VM</div>
 	</div>
 {{< /slide-animate >}}
@@ -97,7 +97,9 @@ subtitle: "Czytanie not katalogowych"
 {{< img-slide m32-io.webp />}}
 {{< img-slide m32-bootloader.webp />}}
 {{< img-slide m32-fuse-bits.webp />}}
-{{< img-slide m32-electrical-characteristics.webp />}}
+{{< img-slide m32-electrical-characteristics.webp >}}
+{{< note >}}Zastępowanie wersji militarnych/kosmicznych przez automotive. Wykorzystanie automotive w sondach kosmicznych.{{< /note >}}
+{{< /img-slide >}}
 {{< img-slide m32-typical-characteristics.webp />}}
 {{< img-slide m32-instruction-set.webp />}}
 {{< img-slide m32-packaging.webp />}}
@@ -235,14 +237,33 @@ subtitle: "Czytanie not katalogowych"
 {{< part "Zwiększanie wydajności" >}}
 
 
-{{< ul-slide "Miary wydajności" >}}
-operacja > instrukcja
-{{< /ul-slide >}}
+{{< slide "Miary wydajności" >}}
+	<h4 class="fragment">Stałoprzecinkowe</h4>
+	<ul>
+		{{< lf >}}MIPS (<em>Million Instructions per Second</em>)
+		<ul>
+			{{< lf >}}MIPS (<em>Meaningless Indicator of Processor Speed</em>)
+			{{< lf >}}BogoMIPS (<em>Bogus MIPS</em>)
+		</ul>
+		{{< lf >}}MOPS (<em>Million Operations per Second</em>)
+		{{< lf >}}TOPS (<em>Tera Operations per Second</em> lub <em>Trillion Operations per Second</em>)
+	</ul>
+{{< /slide >}}
+
+{{< slide "Miary wydajności" >}}
+	<h4 class="fragment">Zmiennoprzecinkowe</h4>
+	<ul>
+		{{< lf >}}FLOPS (<em>Floating point Operations per Second</em>)
+		{{< lf >}}MFLOPS
+		{{< lf >}}GFLOPS
+		{{< lf >}}TFLOPS
+	</ul>
+{{< /slide >}}
 
 {{< img-slide gflops.webp "Oszukujo?" >}}
 {{< /img-slide >}}
 
-{{< img-slide simd.svg "SIMD" >}}
+{{< img-slide simd.svg "SIMD" "background-color: white">}}
 {{< /img-slide >}}
 
 {{< ul-slide "Taksonomia Flynna" >}}
