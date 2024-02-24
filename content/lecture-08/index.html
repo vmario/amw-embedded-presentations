@@ -95,12 +95,222 @@ subtitle: "Obliczenia i optymalizacje"
 
 {{< part "Operacje zmiennoprzecinkowe" >}}
 
-{{< slide "Błędy zaokrągleń" >}}
-{{< /slide >}}
+{{< img-slide "float.svg" "Przykłady typów zmiennoprzecinkowych" />}}
 
-{{< slide "FPU sprzętowe i emulowane" >}}
-{{< /slide >}}
+{{< slide-animate "Cyfry znaczące" >}}
+	{{< code lang="cpp" lines="1-5,8|10-12|14-16|18-20|22-24|26-28|30-32" >}}
+		#include &lt;cstdio&gt;
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		#include &lt;iomanip&gt;
+		using namespace std;
 
-{{< part "Domyślne rzutowania" >}}
+		int main() {
+			cout << setprecision(40);
+
+			uint64_t foo = UINT64_C(12345678901234567890);
+			cout << foo << endl;
+			// 🠞 12345678901234567890
+
+			double foo_double = foo;
+			cout << foo_double << endl;
+			// 🠞 12345678901234567168
+
+			float foo_float{foo};
+			cout << foo_float << endl;
+			// 🠞 12345679395506094080
+			
+			double bar_huge = 1234567890e100;
+			cout << bar_huge << endl;
+			// 🠞 1.234567890000000078944836269502040274001e+109
+
+			double bar_tiny = 1234567890e-100;
+			cout << bar_tiny << endl;
+			// 🠞 1.2345678900000001211954157757914595974e-91
+
+			double bar_inf = 1234567890e300;
+			cout << bar_inf << endl;
+			// 🠞 inf
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Błąd zaokrąglania" >}}
+	{{< code lang="cpp" lines="10-14" >}}
+		#include &lt;cstdio&gt;
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		#include &lt;iomanip&gt;
+		using namespace std;
+
+		int main() {
+			cout << setprecision(40);
+
+			double foo = 0.1 + 0.1 + 0.1 + 0.1 + 0.1 
+					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+			uint64_t foo_int = foo;
+			cout << foo_int << endl;
+			// 🠞 0
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Błąd zaokrąglania" >}}
+	{{< code lang="cpp" lines="10-14|16-20|22-26" >}}
+		#include &lt;cstdio&gt;
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		#include &lt;iomanip&gt;
+		using namespace std;
+
+		int main() {
+			cout << setprecision(40);
+
+			cout << 0.1 << endl;
+			// 🠞 0.1000000000000000055511151231257827021182
+			cout << 0.1 + 0.1 + 0.1 + 0.1 + 0.1
+					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1 << endl;
+			// 🠞 0.9999999999999998889776975374843459576368
+			
+			cout << 0.1f << endl;
+			// 🠞 0.100000001490116119384765625
+			cout << 0.1f + 0.1f + 0.1f + 0.1f + 0.1f
+					+ 0.1f + 0.1f + 0.1f + 0.1f + 0.1f << endl;
+			// 🠞 1.00000011920928955078125
+
+			cout << 0.5 << endl;
+			// 🠞 0.5
+			cout << 0.5 + 0.5 + 0.5 + 0.5 + 0.5
+					+ 0.5 + 0.5 + 0.5 + 0.5 + 0.5 << endl;
+			// 🠞 5
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Porównywanie wartości zmiennoprzecinkowych" >}}
+	{{< code lang="cpp" lines="10-13|15-17|19-24|26-32" >}}
+		#include &lt;cstdio&gt;
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		#include &lt;iomanip&gt;
+		using namespace std;
+
+		int main() {
+			cout << setprecision(40);
+
+			double sum = 0.1 + 0.1 + 0.1 + 0.1 + 0.1
+					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+			cout << sum << endl;
+			// 🠞 0.9999999999999998889776975374843459576368
+
+			double multiplication = 0.1 * 10;
+			cout << multiplication << endl;
+			// 🠞 1
+		 
+			if (sum == multiplication) {
+				cout << "OK" << endl;
+			} else {
+				cout << "Error" << endl;
+			}
+			// 🠞 Error
+		 
+			constexpr double EPSILON = 1.0 / 1000;
+			if (abs(sum - multiplication) < EPSILON) {
+				cout << "OK" << endl;
+			} else {
+				cout << "Error" << endl;
+			}
+			// 🠞 OK
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< part "Domyślne typy podczas obliczeń" >}}
+
+{{< slide-animate "Domyślny typ stałoprzecinkowy" >}}
+	{{< code lang="cpp" lines="6-7,9-10,12-13" >}}
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		using namespace std;
+
+		int main() {
+			cout << 123'456'789 * 10 << endl;
+			// 🠞 1234567890
+
+			cout << 1'123'456'789 * 10 << endl;
+			// 🠞 -1650333998 🤨
+
+			cout << 11'123'456'789 * 10 << endl;
+			// 🠞 111234567890
+		}
+	{{< /code >}}
+	<div class="fragment">
+	{{< code lang="plain" >}}
+		foo.cpp: In function ‘int main()’:
+		foo.cpp:9:31: warning: integer overflow in expression
+		of type ‘int’ results in ‘-1650333998’ [-Woverflow]
+			9 |         cout &lt;&lt; 1'123'456'789 * 10 << endl;
+			  |                 ~~~~~~~~~~~~~~^~~~
+	{{< /code >}}
+	</div>
+{{< /slide-animate >}}
+
+{{< slide-animate "Domyślny typ stałoprzecinkowy" >}}
+	{{< code lang="cpp" lines="6-7|9-10|12-13" >}}
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		using namespace std;
+
+		int main() {
+			cout &lt;&lt; 1'123'456'789ll * 10 &lt;&lt; endl;
+			// 🠞 11234567890
+
+			cout &lt;&lt; 1'123'456'789 * 10ll &lt;&lt; endl;
+			// 🠞 11234567890
+
+			cout &lt;&lt; INT64_C(1'123'456'789) * 10 &lt;&lt; endl;
+			// 🠞 11234567890
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Domyślny typ zmiennoprzecinkowy" >}}
+	{{< code lang="cpp" lines="7-8|10-12|14-15|17-23" >}}
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		#include &lt;iomanip&gt;
+		using namespace std;
+
+		int main() {
+			cout << 1 / 10 << endl;
+			// 🠞 0
+
+			double foo = 1 / 10;
+			cout << foo << endl;
+			// 🠞 0
+
+			cout << 1.0 / 10 << endl;
+			// 🠞 0.1
+
+			cout << setprecision(40);
+
+			cout << 1.0 / 10 << endl;
+			// 🠞 0.1000000000000000055511151231257827021182
+
+			cout << 1.0f / 10 << endl;
+			// 🠞 0.100000001490116119384765625
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< part "Sposób przeprowadzania obliczeń" >}}
+
+{{< ul-slide "FPU (<em>Floating-Point Unit</em>)" >}}
+	{{< lf >}}emulacja programowa
+	{{< lf >}}zewnętrzny koprocesor
+	{{< lf >}}wewnętrzny koprocesor
+	{{< lf >}}integralna część ALU
+{{< /ul-slide >}}
 
 {{< part "Przetwarzanie potokowe" >}}
+{{< part "IEEE-754" >}}
