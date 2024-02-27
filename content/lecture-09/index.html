@@ -13,3 +13,71 @@ subtitle: "Systemy operacyjne czasu rzeczywistego"
 	{{< lf >}}zestawianie połączeń sieciowych<sup>&starf;</sup>
 	{{< lf >}}zarządzanie plikami<sup>&starf;</sup>
 {{< /ul-slide >}}
+
+{{< img-slide qnx-mono.png />}}
+
+{{< ul-slide "Kernel" >}}
+	{{< lf >}}pełny dostęp do pamięci fizycznej
+	{{< lf >}}zarządza pamięcią wirtualną
+	{{< lf >}}pełny dostęp do zasobów sprzętowych
+	{{< lf >}}pełny dostęp do przerwań sprzętowych
+	{{< lf >}}zarządza pracą programów przestrzeni użytkownika (scheduler, przydział pamięci)
+	{{< lf >}}udostępnia sterowniki urządzeń, systemy plików, stosy protokołów sieciowych itp.
+{{< /ul-slide >}}
+
+{{< ul-slide "Programy w przestrzeni użytkownika" >}}
+	{{< lf >}}ograniczony dostęp do pamięci
+	{{< lf >}}brak bezpośredniego dostępu do sprzętu
+	{{< lf >}}podlegają schedulerowi
+	{{< lf >}}mogą na nie zostać nałożone ograniczenia (czas procesora, zużycie pamięci, liczba otwartych plików)
+{{< /ul-slide >}}
+
+{{< ul-slide "MMU <em>(Memory Management Unit)</em>" >}}
+	{{< lf >}}tłumaczy adresy wirtualne na fizyczne za pomocą PTE (<em>Page Table Entry</em>) i jego cache TLB (<em>Translation Lookaside Buffer</em>)
+	{{< lf >}}dzieli pamięć na segmenty (na ogół rzędu 4KiB), które podlegają ochronie
+{{< /ul-slide >}}
+
+{{< img-slide vm.png />}}
+
+{{< ul-slide "GNU/Linux Embedded" >}}
+	{{< lf >}}często brak GUI
+	{{< lf >}}BusyBox
+	{{< lf >}}uClibc, musl
+{{< /ul-slide >}}
+
+{{< img-slide qnx-micro.png />}}
+{{< img-slide qnx-rtos.png />}}
+
+{{< ul-slide "Specyfika RTOS <em>(Real-Time Operating System)</em>" >}}
+	{{< lf >}}system operacyjny kompilowany wraz całością oprogramowania
+	{{< lf >}}brak pamięci wirtualnej i kontroli pamięci (ewentualnie MPU)
+	{{< lf >}}brak sterowników urządzeń
+	{{< lf >}}zadania o niskim priorytecie mogą pozostać nieobsłużone
+{{< /ul-slide >}}
+
+{{< img-slide preemptive-scheduling.jpg />}}
+
+{{< part "Uruchamianie mikrokontrolera" >}}
+
+{{< img-slide boot-flow.webp false "background-color: white" />}}
+{{< img-slide boot-flow-omap.webp />}}
+
+{{< ul-slide "Bootloader" >}}
+	{{< lf >}}ułatwia zmianę programu
+	{{< lf >}}uruchamiany przy resetowaniu &micro;C lub na żądanie użytkownika
+	{{< lf >}}ma prawo zapisu do pamięci programu
+	{{< lf >}}sam umieszczony jest w specjalnym obszarze pamięci
+{{< /ul-slide >}}
+
+{{< img-slide u-boot-nokia.jpg />}}
+
+{{< ul-slide "U-Boot" >}}
+	{{< lf >}}wstępna konfiguracja mikrokontrolera
+	{{< lf >}}inicjalizacja interfejsu Ethernet, karty pamięci
+	{{< lf >}}uruchomienie terminala RS-232
+	{{< lf >}}ładowanie systemu operacyjnego z pamięci nieulotnej, USB, via Ethernet (TFTP)
+	{{< lf >}}zarządzanie skryptami i zmiennymi środowiskowymi
+	{{< lf >}}wyświetlenie splashscreena
+	{{< lf >}}obsługa trybów awaryjnych i serwisowych
+	{{< lf >}}diagnostyka urządzenia, flashowanie pamięci, testowanie TCP/IP itp.
+{{< /ul-slide >}}
