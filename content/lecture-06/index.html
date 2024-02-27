@@ -143,7 +143,7 @@ subtitle: "Noty katalogowe"
 {{< slide-animate "Przypisanie wartości do rejestru" >}}
 	<img src="register-assign.svg" style="background-color: white; width: 800px">
 	{{< code lang="cpp" >}}
-		(*(volatile uint8*))0x7A = (1 << 7) | (1 << 6) | (1 << 4);
+		(*(volatile uint8*))0x7A = (1 << 7) | (1 << 6) | (1 << 2);
 	{{< /code >}}
 {{< /slide-animate >}}
 
@@ -151,7 +151,7 @@ subtitle: "Noty katalogowe"
 	<img src="register-assign.svg" style="background-color: white; width: 800px">
 	{{< code lang="cpp" >}}
 		#define ADCSRA (*(volatile uint8*))0x7A
-		ADCSRA = (1 << 7) | (1 << 6) | (1 << 4);
+		ADCSRA = (1 << 7) | (1 << 6) | (1 << 2);
 	{{< /code >}}
 {{< /slide-animate >}}
 
@@ -160,7 +160,7 @@ subtitle: "Noty katalogowe"
 	{{< code lang="cpp" >}}
 		#define ADCSRA ((*(volatile uint8*))0x7A)
 		#define _BV(bit) (1 << (bit))
-		ADCSRA = _BV(7) | _BV(6) | _BV(4);
+		ADCSRA = _BV(7) | _BV(6) | _BV(2);
 	{{< /code >}}
 {{< /slide-animate >}}
 
