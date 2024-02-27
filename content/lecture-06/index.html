@@ -310,6 +310,26 @@ subtitle: "Noty katalogowe"
 </div>
 {{< /img-slide >}}
 
+{{< slide-animate "TMS320C6000 DSP" >}}
+	{{< code lang="cpp" lines="1,7-10|2,11-12|3,13-14" >}}
+		for (i = 0; i < count; i++) {
+			prod = m[i] * n[i];
+			sum += prod;
+		}
+
+		/*
+		Loop:       ldw    .D1    *A4++,A5
+		 ||         ldw    .D2    *B4++,B5
+		 || [B0]    sub    .S2    B0,1,B0
+		 || [B0]    b      .S1    loop
+		 ||         mpy    .M1    A5,B5,A6
+		 ||         mpyh   .M2    A5,B5,B6
+		 ||         add    .L1    A7,A6,A7
+		 ||         add    .L2    B7,B6,B7
+		*/
+	{{< /code >}}
+{{< /slide-animate >}}
+
 {{< ul-slide "Zastosowania MAC" >}}
 	{{< lf >}}FFT (<em>Fast Fourier Transform</em>)
 	{{< lf >}}DSP (<em>Digital Signal Processing</em>)
