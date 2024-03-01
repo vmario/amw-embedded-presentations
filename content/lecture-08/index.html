@@ -80,7 +80,9 @@ subtitle: "Obliczenia i optymalizacje"
 	</div>
 {{< /slide-animate >}}
 
-{{< img-slide "int-c++.webp" "Typy całkowite w C i C++" />}}
+{{< img-slide "int-c++.webp" "Typy całkowite w C i C++" >}}
+{{< note >}}W AVR <code>int</code> ma 2 bajty, <code>long</code> — 4, a <code>long long</code> — 8. <code>size_t</code> jest typu <code>unsigned int</code> i ma 2 bajty.{{< /note >}}
+{{< /img-slide >}}
 {{< img-slide int-rust.webp "Typy całkowite w Rust" />}}
 {{< img-slide "int-c++-std.webp" "Typy o ustalonej szerokości w C i C++" />}}
 
@@ -95,11 +97,86 @@ subtitle: "Obliczenia i optymalizacje"
 
 {{< part "Operacje zmiennoprzecinkowe" >}}
 
+{{< ul-slide "Standard IEEE 754" >}}
+	{{< lf >}}format zapisu liczb i wartości specjalnych (±0, ±∞, <em>NaN</em>)
+	{{< lf >}}arytmetyka i inne operacje (np. trygonometryczne)
+	{{< lf >}}sposób zaokrąglania
+	{{< lf >}}obsługa błędów (dzielenie przez zero, przepełnienie)
+{{< /ul-slide >}}
+
+{{< ul-slide "Podstawowe typy IEEE 754" >}}
+	{{< note >}}W AVR <code>float</code> ma 4 bajty, a <code>double</code> — 4 lub 8, zależnie od opcji.{{< /note >}}
+	{{< lf >}}64 bity — podwójna precyzja (<em>double</em>)
+		<ul>
+			{{< lf >}}min subnormal: \(\pm 4{,}94 \cdot 10^{−324}\)
+			{{< lf >}}min normal: \(\pm 2{,}23 \cdot 10^{−308}\)
+			{{< lf >}}max: \(\pm 1{,}80 \cdot 10^{308}\)
+		</ul>
+	{{< lf >}}32 bity — pojedyncza precyzja (<em>float</em>)
+		<ul>
+			{{< lf >}}min subnormal: \(\pm 1{,}40 \cdot 10^{−45}\)
+			{{< lf >}}min normal: \(\pm 1{,}18 \cdot 10^{−38}\)
+			{{< lf >}}max: \(\pm 3{,}40 \cdot 10^{38}\)
+		</ul>
+{{< /ul-slide >}}
+
 {{< img-slide "float.svg" "Przykłady typów zmiennoprzecinkowych" />}}
 
+{{< slide-animate "Błąd zaokrąglania" >}}
+	{{< code lang="cpp" lines="6-10" >}}
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		using namespace std;
+
+		int main() {
+			double foo = 0.1 + 0.1 + 0.1 + 0.1 + 0.1 
+					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+			uint64_t foo_int = foo;
+			cout << foo_int << endl;
+			// 🠞 0
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< img-slide prove-you-are-human.webp />}}
+
+{{< slide-animate "Błąd zaokrąglania" >}}
+	{{< code lang="cpp" lines="7-8|10-13|15-17|19-23|25-29" >}}
+		#include &lt;cinttypes&gt;
+		#include &lt;iostream&gt;
+		#include &lt;iomanip&gt;
+		using namespace std;
+
+		int main() {
+			cout << 0.1 << endl;
+			// 🠞 0.1
+
+			cout << setprecision(40);
+
+			cout << 0.1 << endl;
+			// 🠞 0.1000000000000000055511151231257827021182
+
+			cout << 0.1 + 0.1 + 0.1 + 0.1 + 0.1
+					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1 << endl;
+			// 🠞 0.9999999999999998889776975374843459576368
+			
+			cout << 0.1f << endl;
+			// 🠞 0.100000001490116119384765625
+			cout << 0.1f + 0.1f + 0.1f + 0.1f + 0.1f
+					+ 0.1f + 0.1f + 0.1f + 0.1f + 0.1f << endl;
+			// 🠞 1.00000011920928955078125
+
+			cout << 0.5 << endl;
+			// 🠞 0.5
+			cout << 0.5 + 0.5 + 0.5 + 0.5 + 0.5
+					+ 0.5 + 0.5 + 0.5 + 0.5 + 0.5 << endl;
+			// 🠞 5
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
 {{< slide-animate "Cyfry znaczące" >}}
-	{{< code lang="cpp" lines="1-5,8|10-12|14-16|18-20|22-24|26-28|30-32" >}}
-		#include &lt;cstdio&gt;
+	{{< code lang="cpp" lines="9-11|13-15|17-19|21-23|25-27|29-31" >}}
 		#include &lt;cinttypes&gt;
 		#include &lt;iostream&gt;
 		#include &lt;iomanip&gt;
@@ -135,61 +212,8 @@ subtitle: "Obliczenia i optymalizacje"
 	{{< /code >}}
 {{< /slide-animate >}}
 
-{{< slide-animate "Błąd zaokrąglania" >}}
-	{{< code lang="cpp" lines="10-14" >}}
-		#include &lt;cstdio&gt;
-		#include &lt;cinttypes&gt;
-		#include &lt;iostream&gt;
-		#include &lt;iomanip&gt;
-		using namespace std;
-
-		int main() {
-			cout << setprecision(40);
-
-			double foo = 0.1 + 0.1 + 0.1 + 0.1 + 0.1 
-					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
-			uint64_t foo_int = foo;
-			cout << foo_int << endl;
-			// 🠞 0
-		}
-	{{< /code >}}
-{{< /slide-animate >}}
-
-{{< slide-animate "Błąd zaokrąglania" >}}
-	{{< code lang="cpp" lines="10-14|16-20|22-26" >}}
-		#include &lt;cstdio&gt;
-		#include &lt;cinttypes&gt;
-		#include &lt;iostream&gt;
-		#include &lt;iomanip&gt;
-		using namespace std;
-
-		int main() {
-			cout << setprecision(40);
-
-			cout << 0.1 << endl;
-			// 🠞 0.1000000000000000055511151231257827021182
-			cout << 0.1 + 0.1 + 0.1 + 0.1 + 0.1
-					+ 0.1 + 0.1 + 0.1 + 0.1 + 0.1 << endl;
-			// 🠞 0.9999999999999998889776975374843459576368
-			
-			cout << 0.1f << endl;
-			// 🠞 0.100000001490116119384765625
-			cout << 0.1f + 0.1f + 0.1f + 0.1f + 0.1f
-					+ 0.1f + 0.1f + 0.1f + 0.1f + 0.1f << endl;
-			// 🠞 1.00000011920928955078125
-
-			cout << 0.5 << endl;
-			// 🠞 0.5
-			cout << 0.5 + 0.5 + 0.5 + 0.5 + 0.5
-					+ 0.5 + 0.5 + 0.5 + 0.5 + 0.5 << endl;
-			// 🠞 5
-		}
-	{{< /code >}}
-{{< /slide-animate >}}
-
 {{< slide-animate "Porównywanie wartości zmiennoprzecinkowych" >}}
-	{{< code lang="cpp" lines="10-13|15-17|19-24|26-32" >}}
-		#include &lt;cstdio&gt;
+	{{< code lang="cpp" lines="9-12|14-16|18-23|25-31" >}}
 		#include &lt;cinttypes&gt;
 		#include &lt;iostream&gt;
 		#include &lt;iomanip&gt;
@@ -312,5 +336,8 @@ subtitle: "Obliczenia i optymalizacje"
 	{{< lf >}}integralna część ALU
 {{< /ul-slide >}}
 
-{{< part "Przetwarzanie potokowe" >}}
-{{< part "IEEE-754" >}}
+{{< ul-slide "FPU w procesorach ARM" >}}
+	{{< lf >}}FPU (<em>Floating-Point Unit</em>)
+	{{< lf >}}VFP (<em>Vector Floating Point</em>)
+	{{< lf >}}Neon (aka <em>Advanced SIMD Extension</em>)
+{{< /ul-slide >}}
