@@ -143,7 +143,16 @@ subtitle: "Magistsrale komunikacyjne"
 {{< img-slide tmds.svg />}}
 
 {{< ul-slide "Kody" >}}
+	{{< note >}}CRC mogą być wykorzystywane także do korekcji, ale rzadko się to stosuje w praktyce.{{< /note >}}
 	{{< lf >}}kody liniowe (8b/10b)
 	{{< lf >}}CRC (<em>Cyclic Redundancy Check</em>)
-	{{< lf >}}kody Hamminga (SECDED)
+	{{< lf >}}kody korekcyjne:
+		<ul>
+			{{< lf >}}kody Hamminga, w szczególności wersja SECDED (<em>Single Error Correction, Double Error Detection</em>)
+			{{< lf >}}kody splotowe
+			{{< lf >}}kody Reeda-Solomona (CD, DVD, Blu-ray)
+		</ul>
+	{{< lf >}}przeploty
+	{{< lf >}}funkcje hashujące<sup>⁕</sup>
+	{{< lf >}}funkcje hashujące bezpiecznie kryptograficznie<sup>⁕</sup>
 {{< /ul-slide >}}
