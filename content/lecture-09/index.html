@@ -45,6 +45,8 @@ subtitle: "Systemy operacyjne czasu rzeczywistego"
 	{{< lf >}}uClibc, musl
 {{< /ul-slide >}}
 
+{{< img-slide linux-trace.webp />}}
+
 {{< img-slide qnx-micro.png />}}
 {{< img-slide qnx-rtos.png />}}
 
@@ -56,6 +58,18 @@ subtitle: "Systemy operacyjne czasu rzeczywistego"
 {{< /ul-slide >}}
 
 {{< img-slide preemptive-scheduling.jpg />}}
+
+{{< ul-slide "Przykłady RTOS-ów" >}}
+	{{< note >}}Można opowiedzieć o typach licencji GPL, LGPL, BSD, MIT etc. SIL 3 — zagrożenie życia pojedynczej osoby. SIL 4 — zagrożenie życia wielu ludzi. ASIL D — najwyższy (np. zagrożenie spowodowane dysfunkcją <strong>wszystkich</strong> hamulców).{{< /note >}}
+	{{< lf >}}FreeRTOS (licencja MIT)
+	{{< lf >}}SAFERTOS precertyfikowany:
+		<ul>
+			{{< lf >}}IEC 61508-3 SIL 3 (<em>Safety Integrity Level</em>)
+			{{< lf >}}ISO 26262 ASIL D (<em>Automotive Safety Integrity Level</em>)
+		</ul>
+	{{< lf >}}DSP/BIOS → SYS/BIOS → TI-RTOS
+	{{< lf >}}RT Linux
+{{< /ul-slide >}}
 
 {{< part "Uruchamianie mikrokontrolera" >}}
 
