@@ -1,3 +1,3 @@
-<pre data-id="code-animation"><code {{ with .Get "lang" }}class="lang-{{ . }}"{{end}} data-trim data-noescape {{ with .Get "lines" }}data-line-numbers="{{ . }}"{{ end }}>
+<pre><code data-trim data-noescape data-id="{{ with .Get "data-id" }}{{ . }}{{ else }}code-animation{{ end }}" {{ with .Get "lang" }}class="lang-{{ . }}"{{ end }} {{ with .Get "class" }}class="{{ . }}"{{ end }} {{ with .Get "lines" }}data-line-numbers="{{ . }}"{{ end }}>
 		{{- .Inner -}}
 	</code></pre>
