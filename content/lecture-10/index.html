@@ -3,7 +3,109 @@ title: "Wykład 10"
 subtitle: "Bezpieczeństwo systemów"
 ---
 
-{{< part "Jakość kodu" >}}
+{{< part "Dlaczego jakość kodu jest ważna?" >}}
+
+{{< img-slide cable-horror.jpg />}}
+
+{{< slide "Dlaczego jakość kodu jest ważna?" >}}
+	<ul>
+		{{< lf >}}odróżnia programistę od klepacza kodu
+		{{< lf >}}programowanie jest grą zespołową
+		{{< lf >}}zapewnia odpowiednią kulturę pracy
+		{{< lf >}}znacznie zwiększa niezawodność
+	</ul>
+	<blockquote class="fragment">
+		<p>Unsafe' means ‘Somebody may die’.</p>
+		<p><cite>— Safety officer</cite></p>
+	</blockquote>
+{{< /slide >}}
+
+{{< img-slide downfall.jpg "Upadek: Sprawa Boeinga" />}}
+
+{{< ul-slide "Przykłady standardów" >}}
+	{{< lf >}}MISRA C i MISRA C++ (<em>Motor Industry Software Reliability Association</em>)
+	{{< lf >}}AUTOSAR (<em>AUTomotive Open System ARchitecture</em>)
+	{{< lf >}}C++ Core Guidelines
+	{{< lf >}}PEP 20: The Zen of Python
+	{{< lf >}}Linux kernel coding style
+{{< /ul-slide >}}
+
+{{< part "Elementarne zalecenia" >}}
+
+{{< slide-animate "Literki są naprawdę za darmo" >}}
+	{{< code data-id="0" class="ugly" >}}
+		int a = 0;
+	{{< /code >}}
+{{< /slide-animate >}}
+{{< slide-animate "Literki są naprawdę za darmo" >}}
+	{{< code data-id="0" >}}
+		int digitsOnDisplay = 0;
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide-animate "Wszelkie inne znaki też są za darmo (<em>sic!</em>)" >}}
+	{{< code data-id="1" lines="3" class="ugly" >}}
+		int readTemperature()
+		{
+		if (temperatureIsReady()) return i2cReadFrom(SENSOR_ADDRESS) else return 0;
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+{{< slide-animate "Wszelkie inne znaki też są za darmo (<em>sic!</em>)" >}}
+	{{< code data-id="1" lines="3-7" >}}
+		int readTemperature()
+		{
+			if (temperatureIsReady()) {
+				return i2cReadFrom(SENSOR_ADDRESS);
+			} else {
+				return 0;
+			}
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< slide "Funkcje i pliki są prawie za darmo" />}}
+{{< img-slide vscode-layout.webp />}}
+
+{{< slide-animate "Dokumentuj kod" >}}
+	{{< code data-id="2" class="ugly" >}}
+		int setCorrection(const int* coefficients)
+		{
+			…
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+{{< slide-animate "Dokumentuj kod" >}}
+	{{< code data-id="2" >}}
+		/**
+		 * Ustawia krzywą korekcji termopary wg standardu K.
+		 *
+		 * @param coefficients Tablica współczynników.
+		 *
+		 * @retval 0 Ustawiono poprawnie.
+		 * @retval 1 Wystąpił błąd alokacji.
+		 */
+		int setCorrection(const int* coefficients)
+		{
+			…
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
+{{< ul-slide "Wykorzystuj to, za co i tak zapłaciłeś" >}}
+	{{< lf >}}przerwania
+	{{< lf >}}timery
+	{{< lf >}}DMA (<em>Direct Memory Access</em>)
+	{{< lf >}}rejestry ustawiające i zerujące
+{{< /ul-slide >}}
+
+{{< slide "Przedwczesna optymalizacja" >}}
+	<blockquote class="fragment">
+		<p>Premature optimization is the root of&nbsp;all&nbsp;evil.</p>
+		<p><cite>— Donald Knuth</cite></p>
+	</blockquote>
+	<p class="fragment">dobra architektura ≠ przedwczesna optymalizacja</p>
+{{< /slide >}}
 
 {{< part "Sprzętowe wsparcie niezawodności" >}}
 
