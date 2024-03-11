@@ -128,11 +128,52 @@ subtitle: "Bezpieczeństwo systemów"
 
 {{< part "Cyberbezpieczeństwo" >}}
 
-{{< slide "Zabezpieczenie przed kopiowaniem" />}}
-{{< slide "Podpisywanie wsadu" />}}
-{{< slide "Trusted zone" />}}
+{{< ul-slide "Podstawowe zagadnienia" >}}
+	{{< lf >}}zabezpieczenie przed odczytem
+	{{< lf >}}zabezpieczenie przed zapisem
+	{{< lf >}}podpis cyfrowy
+{{< /ul-slide >}}
+
+{{< ul-slide "Newag Impuls 45WE" >}}
+	{{< lf >}}pociągi Kolei Dolnośląskich nie ruszają po przeglądzie w warsztacie konkurencji
+	{{< lf >}}Dragon Sector pobiera wsad, dezasembluje i&nbsp;odkrywa blokady geograficzne
+	{{< lf >}}po zmianie bitu w konfiguracji pociągi ruszają
+	{{< lf >}}Newag S.A. nic nie wie (<em>pikachu face</em>)
+	{{< lf >}}sprzęt nie wspiera podpisu, więc udowodnijcie, że to my
+	{{< lf >}}poza tym jakim prawem używacie składów ze zmodyfikowanym oprogramowaniem?
+{{< /ul-slide >}}
+
+{{< ul-slide "Operacja <em>Olympic Games</em>" >}}
+	{{< lf >}}robak Stuxnet stworzony prawdopodobnie około 2009&nbsp;r. przez USA i Izrael
+	{{< lf >}}robak zaraża komputery z Microsoft Windows np. przez pendrive'a (atak 0-day)
+	{{< lf >}}wyszukuje w sieci sterowniki PLC
+	{{< lf >}}aktywuje się, gdy rozpoznaje Siemens SIMATIC S7-300 lub S7-400
+	{{< lf >}}zwiększa częstotliwość pracy falownika
+	{{< lf >}}skutecznie psuje irańskie wirówki do wzbogacania uranu
+{{< /ul-slide >}}
+
+{{< ul-slide "TEE (<em>Trusted Execution Environment</em>)" >}}
+	{{< lf >}}fizycznie odizolowany mechanizm w procesorze
+	{{< lf >}}bezpieczny system operacyjny
+	{{< lf >}}chroni integralność danych
+	{{< lf >}}chroni integralność programu
+	{{< lf >}}wykorzystuje sprzętowe szyfrowanie pamięci
+	{{< lf >}}jednorazowo ustawiany klucz szyfrujący w procesorze
+{{< /ul-slide >}}
+
+{{< ul-slide "Implementacje TEE" >}}
+	{{< lf >}}AMD Platform Security Processor
+	{{< lf >}}Intel Software Guard Extensions
+	{{< lf >}}IBM Secure Service Container
+	{{< lf >}}RISC-V MultiZone Security Trusted Execution Environment
+	{{< lf >}}ARM TrustZone
+{{< /ul-slide >}}
 {{< img-slide trustzone.webp />}}
-{{< slide "TEE" />}}
-{{< slide "Stuxnet" />}}
-{{< slide "TPM" />}}
+
+{{< ul-slide "TPM (<em>Trusted Platform Module</em>)" >}}
+	{{< lf >}}generator losowy
+	{{< lf >}}generator kluczy
+	{{< lf >}}podpis oprogramowania
+	{{< lf >}}bezpieczne (?) przechowywanie kluczy
+{{< /ul-slide >}}
 {{< img-slide tpm.svg />}}
