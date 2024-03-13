@@ -89,6 +89,7 @@ subtitle: "Obliczenia całkowite i zmiennoprzecinkowe"
 {{< img-slide "int.svg" "Typy o ustalonej szerokości w C i C++" />}}
 
 {{< ul-slide "Kod U2 (<em>two's complement</em>)" >}}
+	{{< note >}}Przykład: Dodanie do liczby z zakresu -1…-8 jakiejś liczby, żeby otrzymać wynik dodatni.{{< /note >}}
 	{{< lf >}}aby zamienić liczbę na przeciwną, należy zanegować bity i dodać 1
 	{{< lf >}}jest tylko jedno zero
 	{{< lf >}}operacje na liczbach ujemnych nie wymagają specjalnego traktowania
@@ -342,3 +343,26 @@ subtitle: "Obliczenia całkowite i zmiennoprzecinkowe"
 	{{< lf >}}VFP (<em>Vector Floating Point</em>)
 	{{< lf >}}Neon (aka <em>Advanced SIMD Extension</em>)
 {{< /ul-slide >}}
+
+{{< slide-animate "Ciekawostka" >}}
+{{< note >}}Kod ze źródeł <em>Quake III: Arena</em>, liczący szybką odwrotność pierwiastka kwadratowego, używanego do określenia oświetlenia i odbicia. Ta implementacja nie daje idealnego wyniku, ale jest 4× szybsza niż normalne operacje zmiennoprzecinkowe.{{< /note >}}
+	{{< code lang="c" lines="7-8|9-10|11|12-13" >}}
+		float Q_rsqrt( float number )
+		{
+			long i;
+			float x2, y;
+			const float threehalfs = 1.5F;
+
+			x2 = number * 0.5F;
+			y  = number;
+			i  = * ( long * ) &y; // evil floating point bit level hacking
+			i  = 0x5f3759df - ( i >> 1 ); // what the fuck?
+			y  = * ( float * ) &i;
+			y  = y * ( threehalfs - ( x2 * y * y ) ); // 1st iteration
+		//y  = y * ( threehalfs - ( x2 * y * y ) ); // 2nd iteration, this can be removed
+
+			return y;
+		}
+	{{< /code >}}
+{{< /slide-animate >}}
+
