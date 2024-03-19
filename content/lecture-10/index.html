@@ -177,3 +177,26 @@ subtitle: "Bezpieczeństwo systemów"
 	{{< lf >}}bezpieczne (?) przechowywanie kluczy
 {{< /ul-slide >}}
 {{< img-slide tpm.svg />}}
+
+{{< part "Ataki sprzętowe" >}}
+
+{{< img-slide breaking-bitlocker.webp >}}
+	{{< note >}}Łamanie Bitlockera za pomocą podsłuchiwania komunikacji z TPM-em za pomocą specjalnie stworzonej sondy.{{< /note >}}
+{{< /img-slide >}}
+{{< img-slide dkwoc-analysis.png />}}
+{{< img-slide dkwoc-hardware.png />}}
+{{< img-slide dkwoc-attack.png >}}
+	{{< note >}}Niekoniecznie można wyciągnąć cały klucz, ale przynajmniej jego część, co znacznie ułatwia <em>brute-force</em>.{{< /note >}}
+{{< /img-slide >}}
+
+{{< ul-slide "Zagrożenia" >}}
+	{{< note >}}Zmyślony atak DDoS (Distributed Denial-of-Service) za pomocą szczoteczek IoT.{{< /note >}}
+	{{< lf >}}ataki na elektrownie, wodociągi
+	{{< lf >}}ataki na infrastrukturę energetyczną za pomocą oprogramowania domowej fotowoltaiki
+	{{< lf >}}ataki DDoS (<em>Distributed Denial-of-Service</em>) za pomocą IoT (<em>Internet of Things</em>)
+	{{< lf >}}ataki na samochody (nie tylko przez GSM, ale nawet DAB)
+	{{< lf >}}atak na Google Maps za pomocą…
+{{< /ul-slide >}}
+{{< img-slide fake-google-traffic.webp >}}
+	{{< note >}}… 99 telefonów.{{< /note >}}
+{{< /img-slide >}}
