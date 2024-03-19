@@ -38,14 +38,21 @@ subtitle: "Systemy operacyjne czasu rzeczywistego"
 {{< /ul-slide >}}
 
 {{< img-slide vm.png />}}
+{{< img-slide windows-memory.webp >}}
+	{{< note >}}
+		<p><em>Błędy stron na dysku</em> — niektórzy wierzą, że to są błędy, ale to tylko informacja, że obszar pamięci nie został znaleziony w RAM-ie i trzeba go pobrać z dysku.
+		<p><em>Wstrzymana</em> — cache, które mogą być zwolnione na potrzeby innych programów.
+	{{< /note >}}
+{{< /img-slide >}}
+{{< img-slide linux-memory.webp >}}
+	{{< note >}}Zwróć uwagę na ogrom przydzielonej pamięci wirtualnej.{{< /note >}}
+{{< /img-slide >}}
 
 {{< ul-slide "GNU/Linux Embedded" >}}
 	{{< lf >}}często brak GUI
 	{{< lf >}}BusyBox
 	{{< lf >}}uClibc, musl
 {{< /ul-slide >}}
-
-{{< img-slide linux-trace.webp />}}
 
 {{< img-slide qnx-micro.png />}}
 {{< img-slide qnx-rtos.png />}}
@@ -77,22 +84,22 @@ subtitle: "Systemy operacyjne czasu rzeczywistego"
 {{< img-slide boot-flow-omap.webp />}}
 {{< img-slide boot-flow-j721e.svg false "background-color: white" />}}
 
-{{< ul-slide "Bootloader" >}}
-	{{< lf >}}ułatwia zmianę programu
-	{{< lf >}}uruchamiany przy resetowaniu &micro;C lub na żądanie użytkownika
-	{{< lf >}}ma prawo zapisu do pamięci programu
-	{{< lf >}}sam umieszczony jest w specjalnym obszarze pamięci
+{{< ul-slide "Podstawowe zadania bootloadera" >}}
+	{{< note >}}<code>((void(*)(void))0xdeadbeef)();</code>{{< /note >}}
+	{{< lf >}}odpowiednik BIOS-a (UEFI) w PC
+	{{< lf >}}może być umieszczony w oddzielnej pamięci (NOR Flash)
+	{{< lf >}}wstępna konfiguracja mikrokontrolera
+	{{< lf >}}inicjalizacja interfejsu Ethernet, karty pamięci
+	{{< lf >}}wyświetlenie splashscreena
+	{{< lf >}}ładowanie systemu operacyjnego z pamięci nieulotnej
+{{< /ul-slide >}}
+
+{{< ul-slide "Opcje serwisowe" >}}
+	{{< lf >}}obsługa trybów awaryjnych i serwisowych
+	{{< lf >}}uruchomienie terminala RS-232
+	{{< lf >}}diagnostyka urządzenia, flashowanie pamięci, testowanie TCP/IP itp.
+	{{< lf >}}ładowanie deweloperskiego systemu operacyjnego <em>via</em> USB lub Ethernet (TFTP)
 {{< /ul-slide >}}
 
 {{< img-slide u-boot-nokia.jpg />}}
-
-{{< ul-slide "U-Boot" >}}
-	{{< lf >}}wstępna konfiguracja mikrokontrolera
-	{{< lf >}}inicjalizacja interfejsu Ethernet, karty pamięci
-	{{< lf >}}uruchomienie terminala RS-232
-	{{< lf >}}ładowanie systemu operacyjnego z pamięci nieulotnej, USB, via Ethernet (TFTP)
-	{{< lf >}}zarządzanie skryptami i zmiennymi środowiskowymi
-	{{< lf >}}wyświetlenie splashscreena
-	{{< lf >}}obsługa trybów awaryjnych i serwisowych
-	{{< lf >}}diagnostyka urządzenia, flashowanie pamięci, testowanie TCP/IP itp.
-{{< /ul-slide >}}
+{{< img-slide android-bootloader.webp />}}
